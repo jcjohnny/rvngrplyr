@@ -27,7 +27,17 @@ initial phase will gather all player data and determine which nba players will h
 - twitter api - lots of news on nba players are tweeted every day and hour. grab data that has the nba players name tagged or mentioned in real time and update the page by the week.
 - not just revenge against former teams, but maybe player vs player (player rivalry, sibling rivalry though rare)? is it possible to determine this information with data and how?
 
-
-#### users can play too
+#### users can play too(lowest priorty)
 - users can vote for an nba player that will have the most vengeful game and win nothing but pride
 - users can save there favorite players of the week to use for later in there fantasy leagues, including notes!
+
+#### user interaction
+user stories: https://trello.com/b/EWPuywCr/rvngrplyr
+-overview-
+- as a user I want graphs to depicts all the revenge type data that a player has for all revenge games played.
+- i want to hover over graphs to view information, and see details and descprtions of the stats being depicted (avg revenge games stats compared to depicted revenge game stats against average stats)
+- I want to comment on a players chances for going off during the game, and have a conversation with other users(maybe not)
+- I want to see all the teams that a previous player was a part of, and the average revenge game stat against average game stat
+- i want an overall estimation graph cirle showcasing the chances of a player going off during a revenge game
+- I want an overall estimation of performance against a certain team, vs other teams. does he care about a vengeful games against a certain team more than another?
+- i want overall performance of a player during a revenge game.
