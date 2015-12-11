@@ -14,10 +14,13 @@ function revengeCtrl($http, $log) {
     function getRevenge() {
 
         $http({
-        method: 'jsonp',
-        url: 'http://stats.nba.com/stats/commonteamroster?LeagueID=00&Season=2015-16&TeamID=1610612744'
+        method: 'JSONP',
+        url: 'http://stats.nba.com/stats/commonallplayers?IsOnlyCurrentSeason=1&LeagueID=00&Season=2015-16&callback=JSON_CALLBACK'
         }).then(function (response) {
-            self.all = response.data.resource;
+            self.all = response.data.resultSets;
+            var checking = response.data.resultSets;
+            console.log(checking);
+
             $log.log(self);
         })
             .catch(function (res) {
