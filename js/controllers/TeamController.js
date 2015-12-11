@@ -17,7 +17,7 @@ function revengeCtrl($http, $log) {
         method: 'JSONP',
         url: 'http://stats.nba.com/stats/commonallplayers?IsOnlyCurrentSeason=1&LeagueID=00&Season=2015-16&callback=JSON_CALLBACK'
         }).then(function (response) {
-            self.all = response.data.resultSets;
+            self.all = response.data.resultSets[0].rowSet;
             var checking = response.data.resultSets;
             console.log(checking);
 
