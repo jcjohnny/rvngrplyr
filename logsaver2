@@ -8,6 +8,7 @@ function revengeCtrl($http, $log) {
     var self = this;
 
     self.all = [];
+
     self.getRevenge;
     getRevenge();
 
@@ -37,8 +38,8 @@ function dayGameCtrl($http, $log) {
 
     function getRevenge() {
         $http({
-        method: 'get',
-        url: 'http://data.nba.com/data//json/nbacom/2015/gameline/20151210/games.json'
+        method: 'JSONP',
+        url: 'http://stats.nba.com/stats/scoreboard/?GameDate=12/11/2015&LeagueID=00&DayOffset=0&callback=JSON_CALLBACK'
         }).then(function (response) {
             self.all = response.data;
             var checking = response.data;
@@ -48,18 +49,6 @@ function dayGameCtrl($http, $log) {
             .catch(function (res) {
             $log.error('failure',res);
         });
-
-        var logIt = function(data) {
-            //print last tweet text
-            var hello = String(data)
-            console.log(hello);
-        }
-
-        var scriptTag = document.createElement('SCRIPT');
-        scriptTag.src = "http://data.nba.com/data//json/nbacom/2015/gameline/20151210/games.json?callback=logIt";
-
-        document.getElementsByTagName('HEAD')[0].appendChild(scriptTag);
-        logIt;
 
     }
 }

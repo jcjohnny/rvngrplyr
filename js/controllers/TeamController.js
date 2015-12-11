@@ -2,9 +2,9 @@
 
 revApp.controller("revengeCtrl", ["$http","$log", revengeCtrl]);
 
+
 function revengeCtrl($http, $log) {
     $log.info("I'm inside the controller");
-
     var self = this;
 
     self.all = [];
@@ -12,22 +12,57 @@ function revengeCtrl($http, $log) {
     getRevenge();
 
     function getRevenge() {
+        // search the api by the current date
+        var newDate = new Date();
+        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate()) +"/"+ String(newDate.getUTCFullYear()))
 
-        $http({
-        method: 'JSONP',
-        url: 'http://stats.nba.com/stats/commonallplayers?IsOnlyCurrentSeason=1&LeagueID=00&Season=2015-16&callback=JSON_CALLBACK'
-        }).then(function (response) {
+        $http
+        .jsonp('http://stats.nba.com/stats/scoreboard/?GameDate='+ currentDate +'&LeagueID=00&DayOffset=0&callback=JSON_CALLBACK')
+        .then(function (response) {
+            // temporary data check for the api
             self.all = response.data.resultSets[0].rowSet;
-            var checking = response.data.resultSets;
-            console.log(checking);
+            // store the necessary data to use as argument in next function
+            const collecterOfData = response.data.resultSets[0].rowSet;
+            $log.log(collecterOfData);
 
-            $log.log(self);
+            // call function to create created nested arrays to sort through
+            getTeamPlayers(collecterOfData);
         })
             .catch(function (res) {
             $log.error('failure',res);
         });
-
     }
 
+    // function to get all team ID's and nest them to create one array
+    function getTeamPlayers(teamInfo){
+        const idArray = [];
+        for (var i = 0; i < teamInfo.length; i++) {
+            var nestTeamArr = [];
+            nestTeamArr.push(teamInfo[i][6]);
+            nestTeamArr.push(teamInfo[i][7]);
+            idArray.push(nestTeamArr)
+        }
+        console.log(idArray)
+        // time to get hit the api again with current data
+        getPlayerRevenge(idArray)
+    }
+
+    function getPlayerRevenge(teamArray){
+        var players = [];
+        var team1 = ""
+        var team2 = ""
+        for (var i = 0; i < teamArray.length; i++) {
+
+            //first nested array [teamId1, teamId2]
+            //hit api and search for players
+            $http
+            .jsonp('http://stats.nba.com/stats/commonteamroster?LeagueID=00&Season=2015-16&TeamID=' + teamArray[i][0] + '&callback=JSON_CALLBACK')
+            .then(function (response){
+                const teamPlayerList = response.data.resultSets[0].rowSet[0];
+                $log.log("player id: " + teamPlayerList[0]);
+
+            })
+        }
+    }
 
 }
