@@ -48,20 +48,21 @@ function revengeCtrl($http, $log) {
     }
 
     function getPlayerRevenge(teamArray){
-        var players = [];
-        var team1 = ""
-        var team2 = ""
+        var playerArray = []
+        var enemyTeam = ""
         for (var i = 0; i < teamArray.length; i++) {
-
+            for( var j = 0; j < teamArray[i].length; j++){
             //first nested array [teamId1, teamId2]
             //hit api and search for players
             $http
-            .jsonp('http://stats.nba.com/stats/commonteamroster?LeagueID=00&Season=2015-16&TeamID=' + teamArray[i][0] + '&callback=JSON_CALLBACK')
+            .jsonp('http://stats.nba.com/stats/commonteamroster?LeagueID=00&Season=2015-16&TeamID=' + teamArray[i][j] + '&callback=JSON_CALLBACK')
             .then(function (response){
                 const teamPlayerList = response.data.resultSets[0].rowSet[0];
+                playerArray.push(teamPlayerList)
                 $log.log("player id: " + teamPlayerList[0]);
-
+                debugger;
             })
+            }
         }
     }
 
