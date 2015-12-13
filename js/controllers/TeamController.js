@@ -72,7 +72,7 @@ function revengeCtrl($http, $log) {
                     // log just one player from each team to know im part of a different team
                     // if there are 4 games for the day, 8 players will be logged from each team to show that it works
                     $log.log("player id: " + teamPlayerList[0]);
-                    console.log("playlist: "+ playerList)
+                    console.log("playlist: "+ playerLis
 
 
                     // need another api call to to compare current player career stats for if have former team of enemy team
@@ -113,7 +113,7 @@ function revengeCtrl($http, $log) {
                 console.log(enemyTeam);
                 console.log(players);
                 console.log(currentPlayer);
-                
+
                 for (var j = 0; j < seasonStats.length; j++){
                     if (seasonStats[j][3] = enemyTeam){
                         console.log('revengegames');
