@@ -15,7 +15,7 @@ function revengeCtrl($http, $log) {
     function getRevenge() {
         // search the api by the current date
         var newDate = new Date();
-        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate() + 1) +"/"+ String(newDate.getUTCFullYear()))
+        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate() - 1) +"/"+ String(newDate.getUTCFullYear()))
         console.log(currentDate);
         $http
         .jsonp('http://stats.nba.com/stats/scoreboard/?GameDate='+ currentDate +'&LeagueID=00&DayOffset=0&callback=JSON_CALLBACK')
@@ -114,7 +114,7 @@ function revengeCtrl($http, $log) {
                         collectRevenge.push([currentPlayerId, enemyTeamId])
                         console.log("REVENGE")
                         if (collectRevenge[0][0] === allPlayersTeams[i][0]){
-                            revengeGames.push([currentPlayerId, enemyTeamId])
+                            revengeGames.push(collectRevenge)
                             debugger
                             break
                         }

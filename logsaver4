@@ -11,11 +11,10 @@ function revengeCtrl($http, $log) {
     getRevenge();
     var revengeGames = self.all
 
-
     function getRevenge() {
         // search the api by the current date
         var newDate = new Date();
-        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate() + 1) +"/"+ String(newDate.getUTCFullYear()))
+        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate() - 1) +"/"+ String(newDate.getUTCFullYear()))
         console.log(currentDate);
         $http
         .jsonp('http://stats.nba.com/stats/scoreboard/?GameDate='+ currentDate +'&LeagueID=00&DayOffset=0&callback=JSON_CALLBACK')
@@ -109,16 +108,11 @@ function revengeCtrl($http, $log) {
             .then(function (response) {
                 var allPlayersTeams = response.data.resultSets[0].rowSet
                 for (var i = 0; i < allPlayersTeams.length; i++) {
-                    var collectRevenge = []
                     if (allPlayersTeams[i][3] === enemyTeamId){
-                        collectRevenge.push([currentPlayerId, enemyTeamId])
                         console.log("REVENGE")
-                        if (collectRevenge[0][0] === allPlayersTeams[i][0]){
-                            revengeGames.push([currentPlayerId, enemyTeamId])
-                            debugger
-                            break
-                        }
-                        // revengeGames.push(revengers)
+                        console.log(currentPlayerId)
+                        var revengers = [currentPlayerId, enemyTeamId]
+                        revengeGames.push(revengers)
                     }
                 }
             })
@@ -127,7 +121,7 @@ function revengeCtrl($http, $log) {
             })
     }
 
-    function shortenRevengeGames(revengers){
+    function sortenRevengeGames(revengers){
         var shortenedRevengeList = []
         for (var i = 0; i < revengers.length; i++) {
             if (revengers[i+1] == undefined){
@@ -138,8 +132,7 @@ function revengeCtrl($http, $log) {
                 }
             }
         }
-        return shortenedRevengeList
-        debugger
+
     }
 
 }
