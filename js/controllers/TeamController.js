@@ -12,17 +12,31 @@ function revengeCtrl($http, $log) {
     self.revengeGames = []
 
     self.getRevenge = getRevenge;
+    self.createFirstChart = createFirstChart;
     self.getRevenge()
     self.playerCards = []
     // self.getPlayerCards = getPlayerCards;
     self.revengeData = []
     // self.getPlayerData = getPlayerData;
 
+    function createFirstChart(){
+        new Chartist.Line('.ct-chart', {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+            series: [
+                [1, 1, 1, 1, 1],
+                [1, 2.5, 3, 2, 3],
+                [1, 2, 2.5, 3.5, 4]
+            ]
+        }, {
+            width: 500,
+            height: 300
+        });
+    }
 
     function getRevenge() {
         // search the api by the current date
         var newDate = new Date();
-        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate() ) +"/"+ String(newDate.getUTCFullYear()))
+        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate() + 2) +"/"+ String(newDate.getUTCFullYear()))
         console.log(currentDate);
         $http
             .jsonp('http://stats.nba.com/stats/scoreboard/?GameDate='+ currentDate +'&LeagueID=00&DayOffset=0&callback=JSON_CALLBACK')
@@ -232,6 +246,7 @@ function revengeCtrl($http, $log) {
                                         var home = response.data.resultSets[1].rowSet[0]
                                         var away = response.data.resultSets[1].rowSet[1]
                                         var lastFive = response.data.resultSets[2].rowSet[0]
+                                        debugger
                                         // time to build this object. its crazy. bear with it. your the boss. be a man.
                                         self.playerCards.push({
                                             playerPicture: playerPictureee,
@@ -248,7 +263,7 @@ function revengeCtrl($http, $log) {
                                             enemyTeam: enemyTeamNameee,
                                             zEnemyGamesLast: enemyGamesLastee,
                                             zEnemyGamesCurrent: enemyGamesCurrentee,
-                                            currentSeasonStats: {
+                                            zCurrentSeasonStats: {
                                                 type: overall[1],
                                                 wins: overall[3],
                                                 losses: overall[4],
@@ -267,7 +282,7 @@ function revengeCtrl($http, $log) {
                                                 poitnts: overall[26],
                                                 plusMinus: overall[27]
                                             },
-                                            currentHomeStats: {
+                                            zCurrentHomeStats: {
                                                 type: home[1],
                                                 wins: home[3],
                                                 losses: home[4],
@@ -286,7 +301,7 @@ function revengeCtrl($http, $log) {
                                                 poitnts: home[26],
                                                 plusMinus: home[27]
                                             },
-                                            currentAwayStats: {
+                                            zCurrentAwayStats: {
                                                 type: away[1],
                                                 wins: away[3],
                                                 losses: away[4],

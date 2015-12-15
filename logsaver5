@@ -1,0 +1,37 @@
+    "http://stats.nba.com/stats/teamvsplayer?Conference=&DateFrom=&DateTo=&Division=&GameSegment=&LastNGames=0&LeagueID=00&Location=&MeasureType=Base&Month=0&OpponentTeamID=0&Outcome=&PaceAdjust=N&PerMode=PerGame&Period=0&PlayerID1=0&PlayerID2=0&PlayerID3=0&PlayerID4=0&PlayerID5=0&PlayerTeamID=1&PlusMinus=N&Rank=N&Season=2015-16&SeasonSegment=&SeasonType=Regular+Season&ShotClockRange=&TeamID="+ teamId +"&VsConference=&VsDivision=&VsPlayerID="+ playerId +"&VsPlayerID1=0&VsPlayerID2=0&VsPlayerID3=0&VsPlayerID4=0&VsPlayerID5=0&VsTeamID=%7B"
+
+
+    var pablo = {
+        firstName: "John",
+        lastName: "Smithy",
+        enemy: [{
+            filthy: "rich",
+            filthy2: "rich"
+        }, {
+            filthy: "rich",
+            filthy2: "rich"
+        }],
+        statsPlayer: [{
+            someStats: "10",
+            otherStats: "1"
+        }]
+
+    }
+
+    self.playerCards.push({
+        playerPicture: "http://stats.nba.com/media/players/230x185/"+playerInfo[0]+".png",
+        firstName: playerInfo[1],
+        lastName: playerInfo[2],
+        playerId: playerInfo[0],
+        team: (playerInfo[20] + " " + playerInfo[17]),
+        position: playerInfo[14],
+        height: playerInfo[10],
+        weight: playerInfo[11],
+        currentSeasonPts: playerStats[3],
+        currentSeasonRbs: playerStats[5],
+        currentSeasonAss: playerStats[4],
+        enemyTeam: enemyTeamName
+    })
+
+
+    http://stats.nba.com/stats/playerfantasyprofile?DateFrom=&DateTo=&GameSegment=&LastNGames=0&LeagueID=00&Location=&MeasureType=Base&Month=0&OpponentTeamID=0&Outcome=&PORound=0&PaceAdjust=N&PerMode=PerGame&Period=0&PlayerID=201956&PlusMinus=N&Rank=N&Season=2015-16&SeasonSegment=&SeasonType=Regular+Season&ShotClockRange=&VsConference=&VsDivision=
