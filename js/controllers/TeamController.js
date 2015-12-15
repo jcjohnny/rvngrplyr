@@ -8,26 +8,16 @@ function revengeCtrl($http, $log) {
     var self = this;
     self.all = [];
 
-    self.getRevengeGames = getRevengeGames
+
     self.revengeGames = []
 
     self.getRevenge = getRevenge;
     self.getRevenge()
-
     self.playerCards = []
     // self.getPlayerCards = getPlayerCards;
     self.revengeData = []
     // self.getPlayerData = getPlayerData;
 
-
-    // function getPlayerCards(){
-    //         debugger
-    //         self.playerCards
-    //         var hello = self.playerCards
-    // }
-    function getRevengeGames(){
-            self.revengeGames
-    }
 
     function getRevenge() {
         // search the api by the current date
@@ -154,27 +144,41 @@ function revengeCtrl($http, $log) {
         var playerId = playerEnemy[0]
         var enemyId = playerEnemy[1]
         var enemyTeamName = playerEnemy[2]
-
+        var playerPictureee, firstNameee, lastNameee, playerIdee, teamee, positionee, heightee, weightee, currentSeasonPtsee, currentSeasonRbsee, currentSeasonAssee, enemyTeamNameee
+        
         $http
             .jsonp('http://stats.nba.com/stats/commonplayerinfo?LeagueID=00&PlayerID=' + playerId + '&SeasonType=Regular+Season&callback=JSON_CALLBACK')
             .then(function(response){
                     var playerInfo = response.data.resultSets[0].rowSet[0]
                     var playerStats = response.data.resultSets[1].rowSet[0]
                     console.log(playerInfo);
-                    self.playerCards.push({
-                        playerPicture: "http://stats.nba.com/media/players/230x185/"+playerInfo[0]+".png",
-                        firstName: playerInfo[1],
-                        lastName: playerInfo[2],
-                        playerId: playerInfo[0],
-                        team: (playerInfo[20] + " " + playerInfo[17]),
-                        position: playerInfo[14],
-                        height: playerInfo[10],
-                        weight: playerInfo[11],
-                        currentSeasonPts: playerStats[3],
-                        currentSeasonRbs: playerStats[5],
-                        currentSeasonAss: playerStats[4],
-                        enemyTeam: enemyTeamName
-                    })
+                        playerPictureee =  "http://stats.nba.com/media/players/230x185/"+playerInfo[0]+".png",
+                        firstNameee =  playerInfo[1],
+                        lastNameee =  playerInfo[2],
+                        playerIdee =  playerInfo[0],
+                        teamee =  (playerInfo[20] + " " + playerInfo[17]),
+                        positionee =  playerInfo[14],
+                        heightee =  playerInfo[10],
+                        weightee =  playerInfo[11],
+                        currentSeasonPtsee =  playerStats[3],
+                        currentSeasonRbsee =  playerStats[5],
+                        currentSeasonAssee =  playerStats[4],
+                        enemyTeamNameee =  enemyTeamName
+                        $http
+                            .jsonp('http://stats.nba.com/stats/playergamelog?LeagueID=00&PlayerID='+ playerId+ '&Season=2014-15&SeasonType=Regular+Season&callback=JSON_CALLBACK')
+                            .then(function(response){
+                                var arrayOfGames = response.data.resultSets[0].rowSet
+                                for (var i = 0; i < arrayOfGames.length; i++) {
+                                    if (arrayOfGames[i][4].split(" ")[2] === enemyTeamNameee) {
+                                    console.log("found something");
+                                    debugger
+                                    }
+                                }
+                            })
+
+            })
+            .catch(function (res) {
+                $log.error('failure',res);
             })
     }
 
