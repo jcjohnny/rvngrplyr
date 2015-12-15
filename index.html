@@ -5,7 +5,7 @@
     <title>Revenge Application</title>
 
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gridlex/2.0.7/gridlex.min.css">
   </head>
   <body>
 
@@ -14,13 +14,32 @@
 
       <section class="col-md-6">
 
-        {{revenges.all}}
-        <!-- <ol id="revenges">
-              <li ng-repeat="revenge in revenges.all">
-                <strong>team 1: {{revenge[6]}}</strong> <em>team 2: {{revenge[7]}}</em>
+        {{revenges.playerCards}}
+        {{revenges.revengeGames}}
+        <ol id="revenges">
+              <li ng-repeat="revenge in revenges.playerCards">
+                <strong>team 1: {{revenge.firstName}}</strong> <em>team 2: {{revenge.lastName}}</em>
 
               </li>
-        </ol> -->
+        </ol>
+
+        <div class="grid-3_xs-1">
+            <ul ng-repeat="revenge in revenges.playerCards">
+
+                <li class="col">    <img src={{revenge.playerPicture}} alt=""></li>
+                <li class="col">{{revenge.firstName}}</li>
+                <li class="col">{{revenge.lastName}}</li>
+                <li class="col">{{revenge.playerId}}</li>
+                <li class="col">{{revenge.team}}</li>
+                <li class="col">{{revenge.position}}</li>
+                <li class="col">{{revenge.height}}</li>
+                <li class="col">{{revenge.weight}}</li>
+                <li class="col">{{revenge.currentSeasonPts}}</li>
+                <li class="col">{{revenge.currentSeasonRbs}}</li>
+                <li class="col">{{revenge.currentSeasonAss}}</li>
+                <li class="col">{{revenge.enemyTeam}}</li>
+            <ul>
+        </div>
       </section>
     </section>
 
