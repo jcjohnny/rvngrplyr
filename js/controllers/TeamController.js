@@ -144,37 +144,200 @@ function revengeCtrl($http, $log) {
         var playerId = playerEnemy[0]
         var enemyId = playerEnemy[1]
         var enemyTeamName = playerEnemy[2]
+        // plus two e's so i use the actual name for the data later at the last callb
         var playerPictureee, firstNameee, lastNameee, playerIdee, teamee, positionee, heightee, weightee, currentSeasonPtsee, currentSeasonRbsee, currentSeasonAssee, enemyTeamNameee
-        
+        var enemyGamesLastee = []
+        var enemyGamesCurrentee = []
+        var playerStatsCurrent = []
+
+        // var gameDate, minutePlayed, fgm, fga, fgThreeA, fgThreeM, ftM, ftA, reb, ast, stl, blk, points, plusMinus
         $http
             .jsonp('http://stats.nba.com/stats/commonplayerinfo?LeagueID=00&PlayerID=' + playerId + '&SeasonType=Regular+Season&callback=JSON_CALLBACK')
             .then(function(response){
-                    var playerInfo = response.data.resultSets[0].rowSet[0]
-                    var playerStats = response.data.resultSets[1].rowSet[0]
-                    console.log(playerInfo);
-                        playerPictureee =  "http://stats.nba.com/media/players/230x185/"+playerInfo[0]+".png",
-                        firstNameee =  playerInfo[1],
-                        lastNameee =  playerInfo[2],
-                        playerIdee =  playerInfo[0],
-                        teamee =  (playerInfo[20] + " " + playerInfo[17]),
-                        positionee =  playerInfo[14],
-                        heightee =  playerInfo[10],
-                        weightee =  playerInfo[11],
-                        currentSeasonPtsee =  playerStats[3],
-                        currentSeasonRbsee =  playerStats[5],
-                        currentSeasonAssee =  playerStats[4],
-                        enemyTeamNameee =  enemyTeamName
+                var playerInfo = response.data.resultSets[0].rowSet[0]
+                var playerStats = response.data.resultSets[1].rowSet[0]
+                console.log(playerInfo);
+                playerPictureee =  "http://stats.nba.com/media/players/230x185/"+playerInfo[0]+".png",
+                firstNameee =  playerInfo[1],
+                lastNameee =  playerInfo[2],
+                playerIdee =  playerInfo[0],
+                teamee =  (playerInfo[20] + " " + playerInfo[17]),
+                positionee =  playerInfo[14],
+                heightee =  playerInfo[10],
+                weightee =  playerInfo[11],
+                currentSeasonPtsee =  playerStats[3],
+                currentSeasonRbsee =  playerStats[5],
+                currentSeasonAssee =  playerStats[4],
+                enemyTeamNameee =  enemyTeamName
+                // previouse season revenge data
+                $http
+                    .jsonp('http://stats.nba.com/stats/playergamelog?LeagueID=00&PlayerID='+ playerId+ '&Season=2014-15&SeasonType=Regular+Season&callback=JSON_CALLBACK')
+                    .then(function(response){
+                        var arrayOfGames = response.data.resultSets[0].rowSet
+                        for (var i = 0; i < arrayOfGames.length; i++) {
+                            if (arrayOfGames[i][4].split(" ")[2] === enemyTeamNameee) {
+                                console.log("found something");
+                                enemyGamesLastee.push({
+                                    gameDate: arrayOfGames[i][3],
+                                    minutePlayed: arrayOfGames[i][6],
+                                    fgm: arrayOfGames[i][7],
+                                    fga: arrayOfGames[i][8],
+                                    fgThreeM: arrayOfGames[i][10],
+                                    fgThreeA: arrayOfGames[i][11],
+                                    ftM: arrayOfGames[i][13],
+                                    ftA: arrayOfGames[i][14],
+                                    reb: arrayOfGames[i][18],
+                                    ast: arrayOfGames[i][19],
+                                    stl: arrayOfGames[i][20],
+                                    blk: arrayOfGames[i][21],
+                                    turnovers: arrayOfGames[i][22],
+                                    points: arrayOfGames[i][24],
+                                    plusMinus: arrayOfGames[i][25]
+                                })
+                            }
+                        }
+                        // current season revenge data
                         $http
-                            .jsonp('http://stats.nba.com/stats/playergamelog?LeagueID=00&PlayerID='+ playerId+ '&Season=2014-15&SeasonType=Regular+Season&callback=JSON_CALLBACK')
+                            .jsonp('http://stats.nba.com/stats/playergamelog?LeagueID=00&PlayerID='+playerId+'&Season=2015-16&SeasonType=Regular+Season&callback=JSON_CALLBACK')
                             .then(function(response){
-                                var arrayOfGames = response.data.resultSets[0].rowSet
-                                for (var i = 0; i < arrayOfGames.length; i++) {
-                                    if (arrayOfGames[i][4].split(" ")[2] === enemyTeamNameee) {
-                                    console.log("found something");
-                                    debugger
+                                console.log("nextbaby");
+                                var currentArrayOfGames = response.data.resultSets[0].rowSet
+                                for (var i = 0; i < currentArrayOfGames.length; i++) {
+                                    if (currentArrayOfGames[i][4].split(" ")[2] === enemyTeamNameee) {
+                                        console.log("found something");
+                                        enemyGamesCurrentee.push({
+                                            gameDate: currentArrayOfGames[i][3],
+                                            minutePlayed: currentArrayOfGames[i][6],
+                                            fgm: currentArrayOfGames[i][7],
+                                            fga: currentArrayOfGames[i][8],
+                                            fgThreeM: currentArrayOfGames[i][10],
+                                            fgThreeA: currentArrayOfGames[i][11],
+                                            ftM: currentArrayOfGames[i][13],
+                                            ftA: currentArrayOfGames[i][14],
+                                            reb: currentArrayOfGames[i][18],
+                                            ast: currentArrayOfGames[i][19],
+                                            stl: currentArrayOfGames[i][20],
+                                            blk: currentArrayOfGames[i][21],
+                                            turnovers: currentArrayOfGames[i][22],
+                                            points: currentArrayOfGames[i][24],
+                                            plusMinus: currentArrayOfGames[i][25]
+                                        })
                                     }
                                 }
+                                $http
+                                    .jsonp('http://stats.nba.com/stats/playerfantasyprofile?DateFrom=&DateTo=&GameSegment=&LastNGames=0&LeagueID=00&Location=&MeasureType=Base&Month=0&OpponentTeamID=0&Outcome=&PORound=0&PaceAdjust=N&PerMode=PerGame&Period=0&PlayerID=' + playerId + '&PlusMinus=N&Rank=N&Season=2015-16&SeasonSegment=&SeasonType=Regular+Season&ShotClockRange=&VsConference=&VsDivision=&callback=JSON_CALLBACK')
+                                    .then(function(response){
+                                        console.log("now i am here fuckface");
+                                        var overall = response.data.resultSets[0].rowSet[0]
+                                        var home = response.data.resultSets[1].rowSet[0]
+                                        var away = response.data.resultSets[1].rowSet[1]
+                                        var lastFive = response.data.resultSets[2].rowSet[0]
+                                        // time to build this object. its crazy. bear with it. your the boss. be a man.
+                                        self.playerCards.push({
+                                            playerPicture: playerPictureee,
+                                            firstName: firstNameee,
+                                            lastName: lastNameee,
+                                            playerId: playerIdee,
+                                            team: teamee,
+                                            position: positionee,
+                                            height: heightee,
+                                            weight: weightee,
+                                            currentSeasonPts: currentSeasonPtsee,
+                                            currentSeasonRbs: currentSeasonRbsee,
+                                            currentSeasonAss: currentSeasonAssee,
+                                            enemyTeam: enemyTeamNameee,
+                                            zEnemyGamesLast: enemyGamesLastee,
+                                            zEnemyGamesCurrent: enemyGamesCurrentee,
+                                            currentSeasonStats: {
+                                                type: overall[1],
+                                                wins: overall[3],
+                                                losses: overall[4],
+                                                minutes: overall[6],
+                                                fgm: overall[7],
+                                                fga: overall[8],
+                                                thrresMade: overall[10],
+                                                threesAttempted: overall[11],
+                                                ftm: overall[13],
+                                                fta: overall[14],
+                                                rebounds: overall[18],
+                                                assists: overall[19],
+                                                turnovers: overall[20],
+                                                steals: overall[21],
+                                                blocks: overall[22],
+                                                poitnts: overall[26],
+                                                plusMinus: overall[27]
+                                            },
+                                            currentHomeStats: {
+                                                type: home[1],
+                                                wins: home[3],
+                                                losses: home[4],
+                                                minutes: home[6],
+                                                fgm: home[7],
+                                                fga: home[8],
+                                                thrresMade: home[10],
+                                                threesAttempted: home[11],
+                                                ftm: home[13],
+                                                fta: home[14],
+                                                rebounds: home[18],
+                                                assists: home[19],
+                                                turnovers: home[20],
+                                                steals: home[21],
+                                                blocks: home[22],
+                                                poitnts: home[26],
+                                                plusMinus: home[27]
+                                            },
+                                            currentAwayStats: {
+                                                type: away[1],
+                                                wins: away[3],
+                                                losses: away[4],
+                                                minutes: away[6],
+                                                fgm: away[7],
+                                                fga: away[8],
+                                                thrresMade: away[10],
+                                                threesAttempted: away[11],
+                                                ftm: away[13],
+                                                fta: away[14],
+                                                rebounds: away[18],
+                                                assists: away[19],
+                                                turnovers: away[20],
+                                                steals: away[21],
+                                                blocks: away[22],
+                                                poitnts: away[26],
+                                                plusMinus: away[27]
+                                            },
+                                            currentLastFiveStats: {
+                                                type: lastFive[1],
+                                                wins: lastFive[3],
+                                                losses: lastFive[4],
+                                                minutes: lastFive[6],
+                                                fgm: lastFive[7],
+                                                fga: lastFive[8],
+                                                thrresMade: lastFive[10],
+                                                threesAttempted: lastFive[11],
+                                                ftm: lastFive[13],
+                                                fta: lastFive[14],
+                                                rebounds: lastFive[18],
+                                                assists: lastFive[19],
+                                                turnovers: lastFive[20],
+                                                steals: lastFive[21],
+                                                blocks: lastFive[22],
+                                                poitnts: lastFive[26],
+                                                plusMinus: lastFive[27]
+                                            }
+                                        })
+
+                                    })
+                                    .catch(function (res) {
+                                    $log.error('failure',res);
+                                    })
                             })
+                            .catch(function (res) {
+                            $log.error('failure',res);
+                            })
+                    })
+                    .catch(function (res) {
+                    $log.error('failure',res);
+                    })
 
             })
             .catch(function (res) {
