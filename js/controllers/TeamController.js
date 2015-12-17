@@ -53,7 +53,12 @@ function revengeCtrl($http, $log) {
     }
 
     function createRevengeChart(playerData){
-        var playerVsTeam = playerData.zEnemyGamesLast[0]
+        var playerVsTeam
+        if (playerData.zEnemyGamesCurrent[0] == undefined){
+            playerVsTeam = playerData.zEnemyGamesLast[0]
+        } else {
+            playerVsTeam = playerData.zEnemyGamesCurrent[0]
+        }
         var playerCurrentAvg = playerData.zCurrentSeasonStats
         if (playerVsTeam == undefined){
             console.log("first revenge game");

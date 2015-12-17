@@ -15,15 +15,15 @@
     <header>
     <ul class = "navplayers" >
         <div class = "app-name" ><a href="#" ng-click="revenges.indexPage(revenges.playerCards)" >RVNGPLYR <br> <span class="app-desc">tracking todays revenge games for the nba</span> </a></div>
-        <li class = "navimages" ng-repeat="revenge in revenges.playerCards"> <a href="#" ng-click="revenges.createCharts([revenge, revenges.playerCards])" ><img src={{revenge.playerPicture}} alt="" ></a></li>
+        <li class = "navimages" ng-repeat="revenge in revenges.playerCards"> <a href="#" ng-click="revenges.createCharts([revenge, revenges.playerCards])" ><img src={{revenge.playerPicture}} alt="" ></li>
     <ul>
     </header>
 
     <section class="container" >
         <div class = "grid">
             <div class=" col {{revenge.firstName + revenge.lastName}} card-holder-all"  ng-repeat="revenge in revenges.playerCards" ng-show = "revenge.isShowing">
-                <div class = "col-3">
-                    <a href="#" ng-click="revenges.createCharts([revenge, revenges.playerCards])"><img src={{revenge.playerPicture}} alt="" ng-show = "revenge.isShowing"> </a>
+                <a href="#" ng-click="revenges.createCharts([revenge, revenges.playerCards])"> <div class = "col-3">
+                    <img src={{revenge.playerPicture}} alt="" ng-show = "revenge.isShowing">
                     <ul class = "{{revenge.firstName}}-1 player" ng-show = "revenge.isShowing">
                         <li class = "{{revenge.lastName}}" ng-show = "revenge.isShowing"> {{revenge.firstName}} {{revenge.lastName}}</li>
                         <li class = "{{revenge.lastName}}" ng-show = "revenge.isShowing"> {{revenge.team}}</li>
@@ -40,11 +40,13 @@
                     <li class = "{{revenge.lastName}}" ng-show = "revenge.isShowing"> <span class="title">Assists: </span>{{revenge.currentSeasonAss}}</li>
                     <!-- <li class = "{{revenge.lastName}}" ng-show = "revenge.isShowing"> <span class="title">Position</span>{{revenge.enemyTeam}}</li> -->
                 </ul>
+
                 <div class = "teams-vs">
                     <div class = "home-team"><img src={{revenge.teamHomeImg}} alt=""></div>
                     <p class = "vs"> VS</p>
                     <div class = "away-team"><img src={{revenge.teamAwayImg}} alt=""></div>
                 </div>
+                </a>
                 <!-- <div class = "{{revenge.lastName}}" ng-show = "revenge.isShowing"> <img src={{revenge.gif}} charset="utf-8"></div> -->
             </div>
             <span class="clear"></span>
