@@ -66,7 +66,7 @@ function revengeCtrl($http, $log) {
                 [playerCurrentAvg.points, playerCurrentAvg.fga, playerCurrentAvg.fgm, playerCurrentAvg.fta, playerCurrentAvg.ftm, playerCurrentAvg.threesAttempted, playerCurrentAvg.threesMade, playerCurrentAvg.rebounds, playerCurrentAvg.assists, playerCurrentAvg.steals, playerCurrentAvg.blocks, playerCurrentAvg.turnovers]
             ]
             }, {
-                height: 300
+                height: 230
             }, {
                 seriesBarDistance: 10,
                 axisX: {
@@ -97,19 +97,17 @@ function revengeCtrl($http, $log) {
                 [playerAwayStats.points, playerAwayStats.fga, playerAwayStats.fgm, playerAwayStats.fta, playerAwayStats.ftm, playerAwayStats.threesAttempted, playerAwayStats.threesMade, playerAwayStats.rebounds, playerAwayStats.assists, playerAwayStats.steals, playerAwayStats.blocks, playerAwayStats.turnovers],
                 [playerLastFive.points, playerLastFive.fga, playerLastFive.fgm, playerLastFive.fta, playerLastFive.ftm, playerLastFive.threesAttempted, playerLastFive.threesMade, playerLastFive.rebounds, playerLastFive.assists, playerLastFive.steals, playerLastFive.blocks, playerLastFive.turnovers]
             ]
-            }, {
-                height: 300
-            }, {
+            },{
                 seriesBarDistance: 10,
                 axisX: {
-                offset: 60
-            },
+                    offset: 100
+                },
             axisY: {
-                offset: 80,
+                offset: 40,
                 labelInterpolationFnc: function(value) {
                     return value
                 },
-                scaleMinSpace: 15
+                scaleMinSpace: 20
             }
             });
 
