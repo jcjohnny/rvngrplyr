@@ -1,0 +1,277 @@
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web:400,200,200italic,300,300italic,400italic,600,700,600italic,700italic,900);
+
+* {
+    font-family: 'Titillium Web', sans-serif;
+}
+.navimages {
+    display: inline-block;
+}
+
+img {
+    max-width: 100%;
+}
+
+ul.navplayers {
+    padding: 0;
+    margin-bottom: 50px;
+}
+
+.app-name {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    padding-bottom: 10px;
+    font-size: 33px;
+    font-weight: 800;
+    line-height: 26px;
+}
+
+span.app-desc {
+    font-size: 14px;
+    font-weight: 100;
+    letter-spacing: 1px;
+    word-spacing: 4px;
+}
+
+li {
+    list-style: none;
+}
+
+.player {
+    text-align: right;
+}
+
+.player li:first-child {
+    background-color: black;
+    color: white;
+    width: 310px;
+    padding-right: 20px;
+    font-weight: bold;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.player li:not(first-child) {
+    padding-right: 20px;
+}
+
+
+.navimages img {
+    width: 100px;
+}
+
+span.clear { clear: both; display: block; }
+
+header {
+    margin: 0 auto;
+    text-align: center;
+    margin-top: -16px;
+}
+
+.grid {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.card-holder-all {
+    border: 1px solid #333;
+    width: 400px;
+    float: left;
+    margin: 1%;
+}
+
+.ct-perfect-fourth>svg{
+    background-color: white;
+}
+
+.col-3 img {
+    width: 154px;
+    vertical-align: bottom;
+    position: absolute;
+}
+
+.col-3 {
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #333;
+}
+
+ul.player {
+    float: right;
+}
+
+.player-info {
+    float: left;
+    width: 210px;
+    padding-left: 30px;
+    width: 180px;
+}
+
+span.title {
+    float: left;
+    font-style: italic;
+}
+
+.teams-vs {
+    width: 80px;
+    float: right;
+    text-align: center;
+}
+
+.player-info li {
+    text-align: right;
+}
+
+.teams-vs {
+    width: 150px;
+    float: right;
+    text-align: center;
+    margin-top: 20px;
+    border-left: 1px solid #B6B6B6;
+}
+
+p.vs {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    text-align: center;
+    margin-left: 61px;
+    margin-top: -17px;
+    font-weight: 800;
+    font-size: 20px;
+}
+
+section.graphs-1.ng-scope {
+    width: 70%;
+    float: left;
+    margin-left: 450px;
+    margin-top: -324px;
+    margin-right: 50px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.ct-series-a .ct-bar, .ct-series-a .ct-line, .ct-series-a .ct-point, .ct-series-a .ct-slice-donut {
+    stroke: #000000 !important;
+}
+
+.ct-series-b .ct-bar, .ct-series-b .ct-line, .ct-series-b .ct-point, .ct-series-b .ct-slice-donut {
+    stroke: #8D8D8D !important;
+}
+
+.ct-area, .ct-series-b .ct-slice-pie {
+    fill: #8D8D8D !important;
+}
+
+.ct-area {
+    stroke: none !important;
+    fill-opacity: .25 !important;
+}
+.ct-series-a .ct-area, .ct-series-a .ct-slice-pie {
+    fill: #000000 !important;
+}
+
+.ct-label {
+    fill: rgba(0,0,0,.4);
+    color: rgb(0, 0, 0) !important;
+    font-size: .75rem;
+    line-height: 1;
+}
+
+.ct-golden-section {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 350px;
+}
+
+.ct-golden-section>svg {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: white;
+}
+
+span.chart1-1 {
+    margin-left: 20px;
+        width: 10px;
+        height: 10px;
+        background-color: black;
+        display: inline-block;
+}
+
+span.chart1-2 {
+    margin-left: 20px;
+        width: 10px;
+        height: 10px;
+        background-color: #8D8D8D;
+        display: inline-block;
+}
+span.chart2-1 {
+    margin-left: 20px;
+        width: 10px;
+        height: 10px;
+        background-color: #8D8D8D;
+        display: inline-block;
+}
+span.chart2-2 {
+    margin-left: 20px;
+        width: 10px;
+        height: 10px;
+        background-color: #8D8D8D;
+        display: inline-block;
+}
+span.chart2-3 {
+    margin-left: 20px;
+        width: 10px;
+        height: 10px;
+        background-color: #F4C63D;
+        display: inline-block;
+}
+span.chart2-4 {
+    margin-left: 20px;
+        width: 10px;
+        height: 10px;
+        background-color: #D17905;
+        display: inline-block;
+}
+
+.keys {
+    position: relative;
+    margin-top: -50px;
+    margin-bottom: 80px;
+    margin-left: 13px;
+}
+
+.chart1-title {
+    background-color: black;
+    color: white;
+    padding: 10px 30px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.first-revenge {
+    height: 300px;
+    background-color: rgb(244, 198, 61);
+    text-align: center;
+    line-height: 300px;
+}
+
+.middle {
+    line-height: 1.5;
+    padding-top: 110px;
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 500px) {
+    section.graphs-1.ng-scope {
+        width: 70%;
+        margin: 0 auto;
+
+    }
+}

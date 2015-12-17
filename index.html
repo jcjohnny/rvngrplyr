@@ -6,38 +6,73 @@
 
     <script src="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gridlex/2.0.7/gridlex.min.css">
     <link href="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
   </head>
-  <body>
+  <body ng-controller="revengeCtrl as revenges">
 
-    <section class="container" ng-controller="revengeCtrl as revenges">
-      <h1 class="fancy">Player Data</h1>
 
-      <div class="grid-3_xs-1">
-          <ul ng-repeat="revenge in revenges.playerCards" ng-init="createFirstChart()">
-              <li class="col"> <a href="#" ng-click="showDetails = ! showDetails"><img src={{revenge.playerPicture}} alt=""></a></li>
-              <li class="col">{{revenge.firstName}}</li>
-              <li class="col">{{revenge.lastName}}</li>
-              <li class="col">{{revenge.playerId}}</li>
-              <li class="col">{{revenge.team}}</li>
-              <li class="col">{{revenge.position}}</li>
-              <li class="col">{{revenge.height}}</li>
-              <li class="col">{{revenge.weight}}</li>
-              <li class="col">{{revenge.currentSeasonPts}}</li>
-              <li class="col">{{revenge.currentSeasonRbs}}</li>
-              <li class="col">{{revenge.currentSeasonAss}}</li>
-              <li class="col">{{revenge.enemyTeam}}</li>
-              <div class="col" ng-show="showDetails">{{revenge.zEnemyGamesLast[0]}}
-                  <div class="ct-chart ct-perfect-fourth"></div>
-              </div>
-          <ul>
-     </div>
+    <header>
+    <ul class = "navplayers" >
+        <div class = "app-name" ><a href="#" ng-click="revenges.indexPage(revenges.playerCards)" >RVNGPLYR <br> <span class="app-desc">tracking todays revenge games for the nba</span> </a></div>
+        <li class = "navimages" ng-repeat="revenge in revenges.playerCards"> <a href="#" ng-click="revenges.createCharts([revenge, revenges.playerCards])" ><img src={{revenge.playerPicture}} alt="" ></a></li>
+    <ul>
+    </header>
+
+    <section class="container" >
+        <div class = "grid">
+            <div class=" col {{revenge.firstName + revenge.lastName}} card-holder-all"  ng-repeat="revenge in revenges.playerCards" ng-show = "revenge.isShowing">
+                <div class = "col-3">
+                    <a href="#" ng-click="revenges.createCharts([revenge, revenges.playerCards])"><img src={{revenge.playerPicture}} alt="" ng-show = "revenge.isShowing"> </a>
+                    <ul class = "{{revenge.firstName}}-1 player" ng-show = "revenge.isShowing">
+                        <li class = "{{revenge.lastName}}" ng-show = "revenge.isShowing"> {{revenge.firstName}} {{revenge.lastName}}</li>
+                        <li class = "{{revenge.lastName}}" ng-show = "revenge.isShowing"> {{revenge.team}}</li>
+                        <li class = "{{revenge.lastName}}" ng-show = "revenge.isShowing"> {{revenge.playerId}}</li>
+                    </ul>
+                </div>
+
+                <ul class = "{{revenge.firstName}}-2 player-info" ng-show = "revenge.isShowing">
+                    <li class = "{{revenge.lastName}}" ng-show = "revenge.isShowing"> <span class="title">Position: </span> {{revenge.position}}</li>
+                    <li class = "{{revenge.lastName}}" ng-show = "revenge.isShowing"> <span class="title">Height:  </span>{{revenge.height}}</li>
+                    <li class = "{{revenge.lastName}}" ng-show = "revenge.isShowing"> <span class="title">Weight: </span>{{revenge.weight}}</li>
+                    <li class = "{{revenge.lastName}}" ng-show = "revenge.isShowing"> <span class="title">Points: </span>{{revenge.currentSeasonPts}}</li>
+                    <li class = "{{revenge.lastName}}" ng-show = "revenge.isShowing"> <span class="title">Rebounds: </span>{{revenge.currentSeasonRbs}}</li>
+                    <li class = "{{revenge.lastName}}" ng-show = "revenge.isShowing"> <span class="title">Assists: </span>{{revenge.currentSeasonAss}}</li>
+                    <!-- <li class = "{{revenge.lastName}}" ng-show = "revenge.isShowing"> <span class="title">Position</span>{{revenge.enemyTeam}}</li> -->
+                </ul>
+                <div class = "teams-vs">
+                    <div class = "home-team"><img src={{revenge.teamHomeImg}} alt=""></div>
+                    <p class = "vs"> VS</p>
+                    <div class = "away-team"><img src={{revenge.teamAwayImg}} alt=""></div>
+                </div>
+                <!-- <div class = "{{revenge.lastName}}" ng-show = "revenge.isShowing"> <img src={{revenge.gif}} charset="utf-8"></div> -->
+            </div>
+            <span class="clear"></span>
+            <section class="graphs-1"  ng-repeat="revenge in revenges.playerCards" ng-show = "revenge.isShowing">
+                <div class="chart1-title" ng-show = "revenge.isShown">Average Revenge games vs Current Season Stats</div>
+                <div class="player-chart-1 ct-chart{{revenge.firstName}} ct-golden-section" ng-show = "revenge.isShown">
+                    <div class = "first-revenge">
+                        <div class="middle">
+                            There are currently no revenge games against this former team. </br> This is a good thing. It is.
+                        </div>
+                    </div>
+                </div>
+                <div class = "keys" ng-show = "revenge.isShown"> <span class = "chart1-1">
+                    </span> previous revenge games <span class = "chart1-2"></span> current season average
+                </div>
+                <div class="chart1-title" ng-show = "revenge.isShown">Stats for current season</div>
+                <div class="player-chart-2 ct-chart{{revenge.firstName}}-1 ct-golden-section" ng-show = "revenge.isShown"></div>
+                <div class = "keys" ng-show = "revenge.isShown">
+                     <span class = "chart2-1"></span> current season average <span class = "chart2-2"></span> current season home games average <span class = "chart2-4"></span> current season away games average <span class = "chart2-4"></span> last five games
+                 </div>
+            </section>
+        </div>
+    </section>
 
         <!-- <section class="col-md-6">
-            {{revenges.playerCards}}
-            {{revenges.revengeGames}}
-            <ol id="revenges"><li ng-repeat="revenge in revenges.playerCards"><strong>team 1: {{revenge.firstName}}</strong> <em>team 2: {{revenge.lastName}}</em></li></ol>
+        {{revenges.playerCards}}
+        {{revenges.revengeGames}}
+        <ol id="revenges"><li ng-repeat="revenge in revenges.playerCards"><strong>team 1: {{revenge.firstName}}</strong> <em>team 2: {{revenge.lastName}}</em></li></ol>
         </section> -->
     </section>
 
