@@ -7,22 +7,21 @@ function revengeCtrl($http, $log) {
     $log.info("I'm inside the controller");
     var self = this;
     self.all = [];
-
-
+    self.thisDate = []
     self.revengeGames = []
-
-    self.getRevenge = getRevenge;
-    // self.createFirstChart = createFirstChart;
-    self.getRevenge()
     self.playerCards = []
-    // self.getPlayerCards = getPlayerCards;
     self.revengeData = []
-    // self.getPlayerData = getPlayerData;
+    self.getRevenge = getRevenge;
+    self.getRevenge()
+
+    self.getCurrentDate = function(){
+        var newDate = new Date();
+        return newDate.toDateString()
+    }
 
     self.createCharts = function(playerData){
         createCurrentSeasonStatsChart(playerData[0]);
         createRevengeChart(playerData[0])
-        // createDonut(playerData[0])
         checkForShown(playerData)
     }
 
@@ -55,7 +54,7 @@ function revengeCtrl($http, $log) {
     function createRevengeChart(playerData){
         var playerVsTeam
         if (playerData.zEnemyGamesCurrent[0] == undefined){
-            playerVsTeam = playerData.zEnemyGamesLast[0]
+            playerVsTeam = playerData.zEnemyGamesLastSeason[0]
         } else {
             playerVsTeam = playerData.zEnemyGamesCurrent[0]
         }
@@ -115,13 +114,14 @@ function revengeCtrl($http, $log) {
                 scaleMinSpace: 20
             }
             });
-
     }
 
     function getRevenge() {
         // search the api by the current date
         var newDate = new Date();
         var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate()) +"/"+ String(newDate.getUTCFullYear()))
+        var currentDateDBFriendly = ( String(newDate.getMonth() + 1) + "-" + String(newDate.getUTCDate()) +"-"+ String(newDate.getUTCFullYear()))
+        self.thisDate.push(currentDateDBFriendly)
         console.log(currentDate);
         $http
             .jsonp('http://stats.nba.com/stats/scoreboard/?GameDate='+ currentDate +'&LeagueID=00&DayOffset=0&callback=JSON_CALLBACK')
@@ -356,7 +356,7 @@ function revengeCtrl($http, $log) {
                                             currentSeasonRbs: currentSeasonRbsee,
                                             currentSeasonAss: currentSeasonAssee,
                                             enemyTeam: enemyTeamNameee,
-                                            zEnemyGamesLast: enemyGamesLastee,
+                                            zEnemyGamesLastSeason: enemyGamesLastee,
                                             zEnemyGamesCurrent: enemyGamesCurrentee,
                                             isShown: false,
                                             isShowing: true,
@@ -478,8 +478,5 @@ function revengeCtrl($http, $log) {
 
                 })
             })
-
     }
-
-
 }

@@ -20,6 +20,9 @@
     </header>
 
     <section class="container" >
+        <div class ="grid-1">
+        <div class="current-date"><span class="date-style">Current Date: </span>{{revenges.thisDate[0]}}</div>
+        </div>
         <div class = "grid">
             <div class=" col {{revenge.firstName + revenge.lastName}} card-holder-all"  ng-repeat="revenge in revenges.playerCards" ng-show = "revenge.isShowing">
                 <a href="#" ng-click="revenges.createCharts([revenge, revenges.playerCards])"> <div class = "col-3">

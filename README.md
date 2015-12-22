@@ -1,5 +1,8 @@
 # rvngrplyr
 
+#### VIEW ME ON BITBALOON
+http://engineer-development-70664.bitballoon.com/#
+
 A data analyzing app for the NBA that parses through all nba player data and collects all nba players that potential revenge games for the week
 
 #### Why do we care?
@@ -41,3 +44,14 @@ user stories: https://trello.com/b/EWPuywCr/rvngrplyr
 - i want an overall estimation graph cirle showcasing the chances of a player going off during a revenge game
 - I want an overall estimation of performance against a certain team, vs other teams. does he care about a vengeful games against a certain team more than another?
 - i want overall performance of a player during a revenge game.
+
+
+
+
+
+#### some issues
+specify the data. if the player was on a different team playing a former team. gotta say it
+add buttons for graphs. view recent 3 revenge games, and view by year.
+add +/- and minutes to a chart
+store the data.
+next 7 days
