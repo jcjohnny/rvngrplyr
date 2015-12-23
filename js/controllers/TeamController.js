@@ -119,7 +119,7 @@ function revengeCtrl($http, $log) {
     function getRevenge() {
         // search the api by the current date
         var newDate = new Date();
-        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate() - 1) +"/"+ String(newDate.getUTCFullYear()))
+        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate()) +"/"+ String(newDate.getUTCFullYear()))
         var currentDateDBFriendly = ( String(newDate.getMonth() + 1) + "-" + String(newDate.getUTCDate()) +"-"+ String(newDate.getUTCFullYear()))
         self.thisDate.push(currentDateDBFriendly)
         console.log(currentDate);
@@ -251,6 +251,7 @@ function revengeCtrl($http, $log) {
         var playerStatsCurrent = []
 
         // var gameDate, minutesPlayed, fgm, fga, threesAttempted, threesMade, ftm, fta, reb, ast, stl, blk, points, plusMinus
+        // this http call is only storing data to be used later
         $http
             .jsonp('http://stats.nba.com/stats/commonplayerinfo?LeagueID=00&PlayerID=' + playerId + '&SeasonType=Regular+Season&callback=JSON_CALLBACK')
             .then(function(response){
@@ -270,7 +271,7 @@ function revengeCtrl($http, $log) {
                 currentSeasonRbsee =  playerStats[5],
                 currentSeasonAssee =  playerStats[4],
                 enemyTeamNameee =  enemyTeamName
-                // previouse season revenge data
+                // previouse season revenge data -- ACTUAL USED DATA
                 $http
                     .jsonp('http://stats.nba.com/stats/playergamelog?LeagueID=00&PlayerID='+ playerId+ '&Season=2014-15&SeasonType=Regular+Season&callback=JSON_CALLBACK')
                     .then(function(response){
@@ -297,7 +298,7 @@ function revengeCtrl($http, $log) {
                                 })
                             }
                         }
-                        // current season revenge data
+                        // current season revenge data -- ACTUAL USED DATA
                         $http
                             .jsonp('http://stats.nba.com/stats/playergamelog?LeagueID=00&PlayerID='+playerId+'&Season=2015-16&SeasonType=Regular+Season&callback=JSON_CALLBACK')
                             .then(function(response){
