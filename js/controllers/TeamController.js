@@ -75,15 +75,15 @@ function revengeCtrl($http, $log) {
             }, {
                 seriesBarDistance: 10,
                 axisX: {
-                offset: 60
-            },
-            axisY: {
-                offset: 80,
-                labelInterpolationFnc: function(value) {
-                    return value
+                    offset: 60
                 },
-                scaleMinSpace: 15
-            }
+                axisY: {
+                    offset: 80,
+                    labelInterpolationFnc: function(value) {
+                        return value
+                    },
+                    scaleMinSpace: 15
+                }
             });
         }
     }

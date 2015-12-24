@@ -4,9 +4,11 @@
     <meta charset="utf-8">
     <title>Revenge Application</title>
     <script src="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <script src="bower_components/chartist-plugin-pointlabels/dist/chartist-plugin-pointlabels.min.js"></script>
+    <script src="bower_components/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.min.js"></script>
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <link href="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" rel="stylesheet"  />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
   </head>
   <body ng-controller="revengeCtrl as revenges">
@@ -15,7 +17,7 @@
     <header>
     <ul class = "navplayers" >
         <div class = "app-name" ><a href="#" ng-click="revenges.indexPage(revenges.playerCards)" >VENGEGAMES <br> <span class="app-desc">tracking todays revenge games for the nba</span> </a></div>
-        <li class = "navimages" ng-repeat="revenge in revenges.playerCards | orderBy:'-team'"> <a href="#" ng-click="revenges.createCharts([revenge, revenges.playerCards])" ><img src={{revenge.playerPicture}} alt="" ></li>
+        <li class = "navimages" ng-repeat="revenge in revenges.playerCards | orderBy:'-team'"> <a href="#" ng-click="revenges.createCharts([revenge, revenges.playerCards])" ><img src={{revenge.playerPicture}} alt="" ></a></li>
     </ul>
     </header>
 
@@ -51,13 +53,16 @@
                     <p class = "vs"> VS</p>
                     <div class = "away-team"><img src={{revenge.teamAwayImg}} alt=""></div>
                 </div>
+                <div class = "click-if" ng-show = "revenge.isShown">Click me if graphs are not displaying properly</div>
                 </a>
+
             </div>
             <!-- END PLAYER CARS -->
             <!-- END PLAYER CARS -->
 
             <!-- GRAPHS -->
             <!-- GRAPHS -->
+
             <span class="clear"></span>
             <section class="graphs-1"  ng-repeat="revenge in revenges.playerCards" ng-show = "revenge.isShowing">
                 <div class="chart1-title" ng-show = "revenge.isShown">Average Revenge games ({{revenge.enemyTeam}}) vs Current Season Stats ({{revenge.teamThree}})</div>
@@ -74,7 +79,7 @@
                 <div class="chart1-title" ng-show = "revenge.isShown">Stats for current season</div>
                 <div class="player-chart-2 ct-chart{{revenge.firstName}}-1 ct-golden-section" ng-show = "revenge.isShown"></div>
                 <div class = "keys" ng-show = "revenge.isShown">
-                     <span class = "chart2-1"></span> current season average <span class = "chart2-2"></span> current season home games average <span class = "chart2-4"></span> current season away games average <span class = "chart2-4"></span> last five games
+                     <span class = "chart2-1"></span> current season average <span class = "chart2-2"></span> current season home games average <span class = "chart2-3"></span> current season away games average <span class = "chart2-4"></span> last five games
                  </div>
             </section>
             <!-- END GRAPHS -->

@@ -172,7 +172,7 @@ angular.module('cfp.loadingBar', [])
     this.latencyThreshold = 100;
     this.startSize = 0.02;
     this.parentSelector = 'body';
-    this.spinnerTemplate = '<div id="loading-bar-spinner"><div class="spinner-icon"></div></div>';
+    this.spinnerTemplate = '<div id="loading-bar-spinner"><div class="spinner-icon"></div></div><div id="loading-bar-spinner "><div class="spinner-icon new-spot"></div></div>';
     this.loadingBarTemplate = '<div id="loading-bar"><div class="bar"><div class="peg"></div></div></div><div class="loadmodal"><div class="loadtext"><h1>Currently fetching revenge data for todays date please give it a minute to load</h1><p>Revenge games are categorized  when a player on a team is currently playing against a former team. If a player has a revenge game, we fetch all the data for all of the current year and last years revenge games against the team and guage the players performance and usage rate for the current revenge game.</p></div></div></div><div class="backgroundhider"></div><div class="hidecontent"></div>';
 
     this.$get = ['$injector', '$document', '$timeout', '$rootScope', function ($injector, $document, $timeout, $rootScope) {
