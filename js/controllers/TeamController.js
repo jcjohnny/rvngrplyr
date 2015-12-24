@@ -53,6 +53,7 @@ function revengeCtrl($http, $log) {
 
     function createRevengeChart(playerData){
         var playerVsTeam
+
         if (playerData.zEnemyGamesCurrent[0] == undefined){
             playerVsTeam = playerData.zEnemyGamesLastSeason[0]
         } else {
@@ -64,10 +65,10 @@ function revengeCtrl($http, $log) {
             return "First Revenge Game Is A Precious Revenge Game"
         } else {
         new Chartist.Bar('.ct-chart'+ playerData.firstName, {
-            labels: ['PTS', 'FGA', 'FGM','FTA', 'FTM', '3PA', '3PM', "REB", 'AST', 'ST', 'BL', 'TO'],
+            labels: ['PTS', 'FGA', 'FGM','FTA', 'FTM', '3PA', '3PM', "REB", 'AST', 'ST', 'BL', 'TO', 'MIN'],
             series: [
-                [playerVsTeam.points, playerVsTeam.fga, playerVsTeam.fgm, playerVsTeam.fta, playerVsTeam.ftm, playerVsTeam.threesAttempted, playerVsTeam.threesMade, playerVsTeam.rebounds, playerVsTeam.assists, playerVsTeam.steals, playerVsTeam.blocks, playerVsTeam.turnovers],
-                [playerCurrentAvg.points, playerCurrentAvg.fga, playerCurrentAvg.fgm, playerCurrentAvg.fta, playerCurrentAvg.ftm, playerCurrentAvg.threesAttempted, playerCurrentAvg.threesMade, playerCurrentAvg.rebounds, playerCurrentAvg.assists, playerCurrentAvg.steals, playerCurrentAvg.blocks, playerCurrentAvg.turnovers]
+                [playerVsTeam.points, playerVsTeam.fga, playerVsTeam.fgm, playerVsTeam.fta, playerVsTeam.ftm, playerVsTeam.threesAttempted, playerVsTeam.threesMade, playerVsTeam.rebounds, playerVsTeam.assists, playerVsTeam.steals, playerVsTeam.blocks, playerVsTeam.turnovers, playerVsTeam.minutes],
+                [playerCurrentAvg.points, playerCurrentAvg.fga, playerCurrentAvg.fgm, playerCurrentAvg.fta, playerCurrentAvg.ftm, playerCurrentAvg.threesAttempted, playerCurrentAvg.threesMade, playerCurrentAvg.rebounds, playerCurrentAvg.assists, playerCurrentAvg.steals, playerCurrentAvg.blocks,  playerCurrentAvg.turnovers, playerCurrentAvg.minutes]
             ]
             }, {
                 height: 230
@@ -89,17 +90,17 @@ function revengeCtrl($http, $log) {
 
     function createCurrentSeasonStatsChart(playerData){
         var playerCurrentSeason = playerData.zCurrentSeasonStats
-        var playerHomeStates = playerData.zCurrentHomeStats
+        var playerHomeStats = playerData.zCurrentHomeStats
         var playerAwayStats = playerData.zCurrentAwayStats
         var playerLastFive = playerData.zCurrentLastFiveStats
 
         new Chartist.Bar('.ct-chart'+ playerData.firstName + "-1", {
-            labels: ['PTS', 'FGA', 'FGM','FTA', 'FTM', '3PA', '3PM', "REB", 'AST', 'ST', 'BL', 'TO'],
+            labels: ['PTS', 'FGA', 'FGM','FTA', 'FTM', '3PA', '3PM', "REB", 'AST', 'ST', 'BL', 'TO', 'MIN'],
             series: [
-                [playerCurrentSeason.points, playerCurrentSeason.fga, playerCurrentSeason.fgm, playerCurrentSeason.fta, playerCurrentSeason.ftm, playerCurrentSeason.threesAttempted, playerCurrentSeason.threesMade, playerCurrentSeason.rebounds, playerCurrentSeason.assists, playerCurrentSeason.steals, playerCurrentSeason.blocks, playerCurrentSeason.turnovers],
-                [playerHomeStates.points, playerHomeStates.fga, playerHomeStates.fgm, playerHomeStates.fta, playerHomeStates.ftm, playerHomeStates.threesAttempted, playerHomeStates.threesMade, playerHomeStates.rebounds, playerHomeStates.assists, playerHomeStates.steals, playerHomeStates.blocks, playerHomeStates.turnovers],
-                [playerAwayStats.points, playerAwayStats.fga, playerAwayStats.fgm, playerAwayStats.fta, playerAwayStats.ftm, playerAwayStats.threesAttempted, playerAwayStats.threesMade, playerAwayStats.rebounds, playerAwayStats.assists, playerAwayStats.steals, playerAwayStats.blocks, playerAwayStats.turnovers],
-                [playerLastFive.points, playerLastFive.fga, playerLastFive.fgm, playerLastFive.fta, playerLastFive.ftm, playerLastFive.threesAttempted, playerLastFive.threesMade, playerLastFive.rebounds, playerLastFive.assists, playerLastFive.steals, playerLastFive.blocks, playerLastFive.turnovers]
+                [playerCurrentSeason.points, playerCurrentSeason.fga, playerCurrentSeason.fgm, playerCurrentSeason.fta, playerCurrentSeason.ftm, playerCurrentSeason.threesAttempted, playerCurrentSeason.threesMade, playerCurrentSeason.rebounds, playerCurrentSeason.assists, playerCurrentSeason.steals, playerCurrentSeason.blocks, playerCurrentSeason.turnovers, playerCurrentSeason.minutes],
+                [playerHomeStats.points, playerHomeStats.fga, playerHomeStats.fgm, playerHomeStats.fta, playerHomeStats.ftm, playerHomeStats.threesAttempted, playerHomeStats.threesMade, playerHomeStats.rebounds, playerHomeStats.assists, playerHomeStats.steals, playerHomeStats.blocks, playerHomeStats.turnovers, playerHomeStats.minutes],
+                [playerAwayStats.points, playerAwayStats.fga, playerAwayStats.fgm, playerAwayStats.fta, playerAwayStats.ftm, playerAwayStats.threesAttempted, playerAwayStats.threesMade, playerAwayStats.rebounds, playerAwayStats.assists, playerAwayStats.steals, playerAwayStats.blocks, playerAwayStats.turnovers, playerAwayStats.minutes],
+                [playerLastFive.points, playerLastFive.fga, playerLastFive.fgm, playerLastFive.fta, playerLastFive.ftm, playerLastFive.threesAttempted, playerLastFive.threesMade, playerLastFive.rebounds, playerLastFive.assists, playerLastFive.steals, playerLastFive.blocks, playerLastFive.turnovers, playerLastFive.minutes]
             ]
             },{
                 seriesBarDistance: 10,
@@ -116,10 +117,11 @@ function revengeCtrl($http, $log) {
             });
     }
 
+    // Start Fetching Data
     function getRevenge() {
         // search the api by the current date
         var newDate = new Date();
-        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate()) +"/"+ String(newDate.getUTCFullYear()))
+        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate()-2) +"/"+ String(newDate.getUTCFullYear()))
         var currentDateDBFriendly = ( String(newDate.getMonth() + 1) + "-" + String(newDate.getUTCDate()) +"-"+ String(newDate.getUTCFullYear()))
         self.thisDate.push(currentDateDBFriendly)
         console.log(currentDate);
@@ -250,7 +252,7 @@ function revengeCtrl($http, $log) {
         var enemyGamesCurrentee = []
         var playerStatsCurrent = []
 
-        // var gameDate, minutesPlayed, fgm, fga, threesAttempted, threesMade, ftm, fta, reb, ast, stl, blk, points, plusMinus
+        // var gameDate, minutes, fgm, fga, threesAttempted, threesMade, ftm, fta, reb, ast, stl, blk, points, plusMinus
         // this http call is only storing data to be used later
         $http
             .jsonp('http://stats.nba.com/stats/commonplayerinfo?LeagueID=00&PlayerID=' + playerId + '&SeasonType=Regular+Season&callback=JSON_CALLBACK')
@@ -281,7 +283,7 @@ function revengeCtrl($http, $log) {
                                 console.log("found something");
                                 enemyGamesLastee.push({
                                     gameDate: arrayOfGames[i][3],
-                                    minutesPlayed: arrayOfGames[i][6],
+                                    minutes: arrayOfGames[i][6],
                                     fgm: arrayOfGames[i][7],
                                     fga: arrayOfGames[i][8],
                                     threesMade: arrayOfGames[i][10],
@@ -295,6 +297,7 @@ function revengeCtrl($http, $log) {
                                     turnovers: arrayOfGames[i][22],
                                     points: arrayOfGames[i][24],
                                     plusMinus: arrayOfGames[i][25]
+
                                 })
                             }
                         }
@@ -309,7 +312,7 @@ function revengeCtrl($http, $log) {
                                         console.log("found something");
                                         enemyGamesCurrentee.push({
                                             gameDate: currentArrayOfGames[i][3],
-                                            minutesPlayed: currentArrayOfGames[i][6],
+                                            minutes: currentArrayOfGames[i][6],
                                             fgm: currentArrayOfGames[i][7],
                                             fga: currentArrayOfGames[i][8],
                                             threesMade: currentArrayOfGames[i][10],
@@ -332,6 +335,13 @@ function revengeCtrl($http, $log) {
                                         gifee = response.data.data[0].images.downsized_medium.url
                                     })
                                 $http
+                                    .get("http://stats.nba.com/feeds/RotoWirePlayers-583598/2754.json")
+                                    .then(function(response){
+                                        debugger
+                                        someData = response
+                                    })
+
+                                $http
                                     .jsonp('http://stats.nba.com/stats/playerfantasyprofile?DateFrom=&DateTo=&GameSegment=&LastNGames=0&LeagueID=00&Location=&MeasureType=Base&Month=0&OpponentTeamID=0&Outcome=&PORound=0&PaceAdjust=N&PerMode=PerGame&Period=0&PlayerID=' + playerId + '&PlusMinus=N&Rank=N&Season=2015-16&SeasonSegment=&SeasonType=Regular+Season&ShotClockRange=&VsConference=&VsDivision=&callback=JSON_CALLBACK')
                                     .then(function(response){
                                         console.log("now i am here mang");
@@ -339,6 +349,10 @@ function revengeCtrl($http, $log) {
                                         var home = response.data.resultSets[1].rowSet[0]
                                         var away = response.data.resultSets[1].rowSet[1]
                                         var lastFive = response.data.resultSets[2].rowSet[0]
+
+                                        if (enemyTeamNameee == "NJN"){
+                                            enemyTeamNameee = "BKN"
+                                        }
                                         // time to build this object. its crazy. bear with it. your the boss. be a man.
                                         self.playerCards.push({
                                             playerPicture: playerPictureee,
@@ -436,9 +450,10 @@ function revengeCtrl($http, $log) {
                                                 blocks: lastFive[22],
                                                 points: lastFive[26],
                                                 plusMinus: lastFive[27]
+
                                             }
                                         })
-
+                                        debugger
                                     })
                                     .catch(function (res) {
                                     $log.error('failure',res);
