@@ -94,6 +94,15 @@ li.navimages:hover {
     transition: 1s;
 }
 
+a:hover {
+    color: #D17905;
+    -o-transition: .5s;
+    -ms-transition: .5s;
+    -moz-transition: .5s;
+    -webkit-transition: .5s;
+    transition: 1s;
+}
+
 span.clear { clear: both; display: block; }
 
 header {

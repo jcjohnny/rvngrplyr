@@ -39,7 +39,6 @@ function revengeCtrl($http, $log) {
     }
 
     function checkForShown(playerData){
-
         playerData[0].isShown = true
         playerData[0].isShowing = true
         var playerList = playerData[1]
@@ -52,8 +51,8 @@ function revengeCtrl($http, $log) {
     }
 
     function createRevengeChart(playerData){
+        debugger
         var playerVsTeam
-
         if (playerData.zEnemyGamesCurrent[0] == undefined){
             playerVsTeam = playerData.zEnemyGamesLastSeason[0]
         } else {
@@ -121,7 +120,7 @@ function revengeCtrl($http, $log) {
     function getRevenge() {
         // search the api by the current date
         var newDate = new Date();
-        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate()-2) +"/"+ String(newDate.getUTCFullYear()))
+        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate()-3) +"/"+ String(newDate.getUTCFullYear()))
         var currentDateDBFriendly = ( String(newDate.getMonth() + 1) + "-" + String(newDate.getUTCDate()) +"-"+ String(newDate.getUTCFullYear()))
         self.thisDate.push(currentDateDBFriendly)
         console.log(currentDate);
@@ -337,7 +336,6 @@ function revengeCtrl($http, $log) {
                                 $http
                                     .get("http://stats.nba.com/feeds/RotoWirePlayers-583598/2754.json")
                                     .then(function(response){
-                                        debugger
                                         someData = response
                                     })
 
@@ -453,7 +451,7 @@ function revengeCtrl($http, $log) {
 
                                             }
                                         })
-                                        debugger
+
                                     })
                                     .catch(function (res) {
                                     $log.error('failure',res);
