@@ -51,6 +51,7 @@ function revengeCtrl($http, $log) {
     }
 
     function createRevengeChart(playerData){
+        debugger
         var averagePoints = 0,
             averageFga  = 0,
             averageFgm = 0,

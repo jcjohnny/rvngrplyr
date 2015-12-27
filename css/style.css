@@ -3,6 +3,10 @@
 * {
     font-family: 'Titillium Web', sans-serif;
 }
+
+body {
+    background-color: #FEF7E4;
+}
 .navimages {
     display: inline-block;
 }
@@ -121,10 +125,11 @@ header {
 }
 
 .card-holder-all {
-    border: 1px solid #333;
+    background-color: #fff;
     width: 300px;
     float: left;
     margin: 1%;
+    border: 1px solid #333;
 
 }
 
