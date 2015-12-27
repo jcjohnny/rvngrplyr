@@ -449,7 +449,7 @@ function revengeCtrl($http, $log) {
                                             fouls: currentArrayOfGames[i][23]
                                         })
                                     }
-    //start searching for currentseasonteams
+                                    //start searching for currentseasonteams
                                     $http
                                         .jsonp('http://stats.nba.com/stats/boxscoretraditionalv2?EndPeriod=10&EndRange=28800&GameID='+ currentArrayOfGames[i][2] +'&RangeType=0&Season=2014-15&SeasonType=Regular+Season&StartPeriod=1&StartRange=0&callback=JSON_CALLBACK')
                                         .then(function(response){
@@ -496,7 +496,6 @@ function revengeCtrl($http, $log) {
                                                             teamPlusMinus: thisHomeTeam[24]
                                                         }
                                                     })//pushing
-                                                    debugger
                                                 }//if statement
                                             }//for loop
                                         })
