@@ -51,7 +51,6 @@ function revengeCtrl($http, $log) {
     }
 
     function createRevengeChart(playerData){
-        debugger
         var averagePoints = 0,
             averageFga  = 0,
             averageFgm = 0,
@@ -117,6 +116,10 @@ function revengeCtrl($http, $log) {
 
         var playerCurrentAvg = playerData.zCurrentSeasonStats
 
+        if (isNaN(averagePoints)){
+            console.log("first revenge game");
+            return "First Revenge Game Is A Precious Revenge Game"
+        } else {
         new Chartist.Bar('.ct-chart'+ playerData.firstName, {
             labels: ['PTS', 'FGA', 'FGM','FTA', 'FTM', '3PA', '3PM', "REB", 'AST', 'ST', 'BL', 'TO', 'MIN'],
             series: [
@@ -141,7 +144,8 @@ function revengeCtrl($http, $log) {
                     appendToBody: true
                 })
             ]
-        });
+        })
+        }
     }
 
     function createCurrentSeasonStatsChart(playerData){
@@ -185,7 +189,7 @@ function revengeCtrl($http, $log) {
     function getRevenge() {
         // search the api by the current date
         var newDate = new Date();
-        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate() +1) +"/"+ String(newDate.getUTCFullYear()))
+        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate() + 1) +"/"+ String(newDate.getUTCFullYear()))
         var currentDateDBFriendly = ( String(newDate.getMonth() + 1) + "-" + String(newDate.getUTCDate()) +"-"+ String(newDate.getUTCFullYear()))
         self.thisDate.push(currentDateDBFriendly)
         console.log(currentDate);
