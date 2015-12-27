@@ -60,7 +60,7 @@ li {
 }
 
 .current-date {
-    background-color: #D17905;
+    background-color: #3A3A3A;
     margin-left: 1%;
     padding: 5px;
     padding-left: 10px;
@@ -91,7 +91,7 @@ li.navimages:hover {
     -ms-transition: .5s;
     -moz-transition: .5s;
     -webkit-transition: .5s;
-    transition: 1s;
+    transition: .4s;
 }
 
 a:hover {
@@ -202,13 +202,22 @@ a {
     text-decoration: none;
 }
 
-.ct-series-a .ct-bar, .ct-series-a .ct-line, .ct-series-a .ct-point, .ct-series-a  {
+.ct-series-a .ct-bar  {
     stroke: #000000 !important;
     stroke-width: 7px !important;
 }
+.ct-series-a .ct-bar:hover  {
+    stroke: #ABABAB !important;
+    -o-transition: .5s;
+    -ms-transition: .5s;
+    -moz-transition: .5s;
+    -webkit-transition: .5s;
+    transition: .6s;
 
-.ct-series-b .ct-bar, .ct-series-b .ct-line, .ct-series-b .ct-point, .ct-series-b  {
-    stroke: #8D8D8D !important;
+}
+
+.ct-series-b .ct-bar  {
+    stroke: #408A67 !important;
     stroke-width: 7px !important;
 }
 .ct-series-c .ct-bar, .ct-series-c .ct-line, .ct-series-c .ct-point, .ct-series-c  {
@@ -219,7 +228,7 @@ a {
 }
 
 .ct-area, .ct-series-b .ct-slice-pie {
-    fill: #8D8D8D !important;
+    fill: #408A67 !important;
 }
 
 .ct-area {
@@ -274,7 +283,7 @@ span.chart1-2 {
     margin-left: 20px;
         width: 10px;
         height: 10px;
-        background-color: #8D8D8D;
+        background-color: #408A67;
         display: inline-block;
 }
 span.chart2-1 {
@@ -288,7 +297,7 @@ span.chart2-2 {
     margin-left: 20px;
         width: 10px;
         height: 10px;
-        background-color: #8D8D8D;
+        background-color: #408A67;
         display: inline-block;
 }
 span.chart2-3 {
@@ -433,6 +442,19 @@ span.chart2-4 {
     top: 230px;
     left: 50%;
 }
+
+.chartist-tooltip {
+    margin-top: 0px;
+    position: absolute;
+    z-index: 99;
+    background-color: white;
+    width: 100px;
+    height: 50px;
+    border: 1px solid;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
 
 .click-if {
     display: block;
