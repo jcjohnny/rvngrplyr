@@ -15,22 +15,25 @@ function revengeCtrl($http, $log) {
     self.getRevenge()
 
     self.getCurrentDate = function(){
+        //display the current date to the index page
         var newDate = new Date();
         return newDate.toDateString()
     }
 
     self.createCharts = function(playerData){
+        //function starter
         createCurrentSeasonStatsChart(playerData[0]);
         createRevengeChart(playerData[0])
         checkForShown(playerData)
     }
 
     self.indexPage = function(playerData){
+        //function starter
         goToIndex(playerData)
     }
 
     function goToIndex(playerData){
-
+        // turn all charts off and all player cards on
         for (var i = 0; i < playerData.length; i++) {
                 playerData[i].isShown = false
                 playerData[i].isShowing = true
@@ -39,9 +42,13 @@ function revengeCtrl($http, $log) {
     }
 
     function checkForShown(playerData){
+        // show player card and charts on
         playerData[0].isShown = true
         playerData[0].isShowing = true
         var playerList = playerData[1]
+        // turns off all other card instances and charts off.
+        // required if a player is selected from the navigation if not on home page.
+
         for (var i = 0; i < playerList.length; i++) {
             if (playerList[i].firstName != playerData[0].firstName){
                 playerList[i].isShown = false
@@ -51,6 +58,7 @@ function revengeCtrl($http, $log) {
     }
 
     function createRevengeChart(playerData){
+        // averaging out all previous season and current season stats
         var averagePoints = 0,
             averageFga  = 0,
             averageFgm = 0,
@@ -64,6 +72,8 @@ function revengeCtrl($http, $log) {
             averageBl = 0,
             averageTo = 0,
             averageMin = 0
+
+        // if it is not undefined, than collect data
         if ((playerData.zEnemyGamesCurrent[0] !== undefined) == true){
             for (var i = 0; i < playerData.zEnemyGamesCurrent.length; i++) {
                 averagePoints += playerData.zEnemyGamesCurrent[i].points
@@ -81,6 +91,7 @@ function revengeCtrl($http, $log) {
                 averageMin+= playerData.zEnemyGamesCurrent[i].minutes
             }
         }
+        // if it is not undefined, than collect data
         if ((playerData.zEnemyGamesLastSeason[0] !== undefined) == true){
             for (var i = 0; i < playerData.zEnemyGamesLastSeason.length; i++) {
                 averagePoints += playerData.zEnemyGamesLastSeason[i].points
@@ -99,6 +110,7 @@ function revengeCtrl($http, $log) {
             }
         }
 
+        // average out the stats by the length of revenge games
         var revengeGamesAmount = playerData.zEnemyGamesCurrent.length + playerData.zEnemyGamesLastSeason.length
             averagePoints = (averagePoints / revengeGamesAmount)
             averageFga = (averageFga / revengeGamesAmount)
@@ -114,12 +126,15 @@ function revengeCtrl($http, $log) {
             averageTo = (averageTo / revengeGamesAmount)
             averageMin = (averageMin / revengeGamesAmount)
 
+        // shorten the call
         var playerCurrentAvg = playerData.zCurrentSeasonStats
 
+        // if no revenge games, do not create chart.
         if (isNaN(averagePoints)){
             console.log("first revenge game");
             return "First Revenge Game Is A Precious Revenge Game"
         } else {
+        // lets create the chart
         new Chartist.Bar('.ct-chart'+ playerData.firstName, {
             labels: ['PTS', 'FGA', 'FGM','FTA', 'FTM', '3PA', '3PM', "REB", 'AST', 'ST', 'BL', 'TO', 'MIN'],
             series: [
@@ -139,13 +154,75 @@ function revengeCtrl($http, $log) {
             },
                 scaleMinSpace: 15
             },
+            // a plugin from chartist for tooltips
             plugins: [
                 Chartist.plugins.tooltip({
                     appendToBody: true
                 })
             ]
         })
+
+        //stays in the else statement. if revenge games exist, lets proceed to creating some donuts
+        var averageData = [[averagePoints, averageFga, averageFgm, averageFta, averageFtm, averageThreeA, averageThreeM, averageReb, averageAst, averageSt, averageBl, averageTo, averageMin], [playerCurrentAvg], playerData]
+        createAveragePerformanceDonut(averageData)
+        createAverageUsageDonut(playerData)
         }
+    }
+
+    function createAveragePerformanceDonut(playerData){
+        // calculate increased performance by using points metrics from fanduel
+        var fdRevengePoints = playerData[0][0]
+        var fdRevengeReb = playerData[0][7] * 1.2
+        var fdRevengeAst = playerData[0][8] * 1.5
+        var fdRevengeSt = playerData[0][9] * 2
+        var fdRevengeBl = playerData[0][10] * 2
+        var fdRevengeTo = -playerData[0][11]
+
+        var fdPoints = playerData[1][0].points
+        var fdReb = playerData[1][0].rebounds * 1.2
+        var fdAst = playerData[1][0].assists * 1.5
+        var fdSt = playerData[1][0].steals * 2
+        var fdBl = playerData[1][0].blocks * 2
+        var fdTo = -playerData[1][0].turnovers
+
+        var fdRevengeStats = fdRevengePoints + fdRevengeReb + fdRevengeAst + fdRevengeSt + fdRevengeBl + fdRevengeTo
+        var fdStats = fdPoints + fdReb + fdAst + fdSt + fdBl + fdTo
+
+        var increaseVSdecrease
+        if (fdRevengeStats < fdStats){
+            increaseVSdecrease = "Perfomance Decrease"
+        } else {
+            increaseVSdecrease = "Performance Increase"
+        }
+
+        var chart = new Chartist.Pie('.ct-chart' + playerData[2].firstName + "-2",
+                {
+                    series: [fdStats, fdRevengeStats ],
+                    labels: ['totalSeasinScore', 'totalRevengeScore']
+                }, {
+                    donut: true,
+                    donutWidth: 40,
+                    startAngle: 180,
+                    total: 100,
+                    showLabel: false,
+                    plugins: [
+                        Chartist.plugins.fillDonut({
+                            items: [{
+                                content: '<i class="fa fa-tachometer"></i>',
+                                position: 'bottom',
+                                offsetY : 10,
+                                offsetX: -2
+                            }, {
+                                content: '<h3>'+ (fdRevengeStats - fdStats) + '<br> <span class="small">'+increaseVSdecrease+'</span></h3>'
+                            }]
+                        })
+                    ],
+                });
+    }
+
+    function createAverageUsageDonut(playerData){
+        // calculate usage rate difference here here
+        debugger
     }
 
     function createCurrentSeasonStatsChart(playerData){
@@ -172,7 +249,7 @@ function revengeCtrl($http, $log) {
                     labelInterpolationFnc: function(value) {
                         return value
                 },
-                    scaleMinSpace: 20
+                    scaleMinSpace: 15
                 },
                 plugins: [
                     Chartist.plugins.tooltip({
@@ -180,6 +257,7 @@ function revengeCtrl($http, $log) {
                     })
                 ]
             });
+
     }
 
 
@@ -189,7 +267,7 @@ function revengeCtrl($http, $log) {
     function getRevenge() {
         // search the api by the current date
         var newDate = new Date();
-        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate() + 1) +"/"+ String(newDate.getUTCFullYear()))
+        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate() - 1) +"/"+ String(newDate.getUTCFullYear()))
         var currentDateDBFriendly = ( String(newDate.getMonth() + 1) + "-" + String(newDate.getUTCDate()) +"-"+ String(newDate.getUTCFullYear()))
         self.thisDate.push(currentDateDBFriendly)
         console.log(currentDate);
@@ -453,9 +531,8 @@ function revengeCtrl($http, $log) {
                                             plusMinus: currentArrayOfGames[i][25],
                                             fouls: currentArrayOfGames[i][23]
                                         })
-                                    }
-                                    //start searching for currentseasonteams
-                                    $http
+                                        //start searching for currentseasonteams
+                                        $http
                                         .jsonp('http://stats.nba.com/stats/boxscoretraditionalv2?EndPeriod=10&EndRange=28800&GameID='+ currentArrayOfGames[i][2] +'&RangeType=0&Season=2014-15&SeasonType=Regular+Season&StartPeriod=1&StartRange=0&callback=JSON_CALLBACK')
                                         .then(function(response){
                                             console.log("gotem");
@@ -504,6 +581,7 @@ function revengeCtrl($http, $log) {
                                                 }//if statement
                                             }//for loop
                                         })
+                                    }
                                 }
 
 
