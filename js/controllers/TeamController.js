@@ -138,21 +138,25 @@ function revengeCtrl($http, $log) {
         new Chartist.Bar('.ct-chart'+ playerData.firstName, {
             labels: ['PTS', 'FGA', 'FGM','FTA', 'FTM', '3PA', '3PM', "REB", 'AST', 'ST', 'BL', 'TO', 'MIN'],
             series: [
-                [averagePoints, averageFga, averageFgm, averageFta, averageFtm, averageThreeA, averageThreeM, averageReb, averageAst, averageSt, averageBl, averageTo, averageMin],
-                [playerCurrentAvg.points, playerCurrentAvg.fga, playerCurrentAvg.fgm, playerCurrentAvg.fta, playerCurrentAvg.ftm, playerCurrentAvg.threesAttempted, playerCurrentAvg.threesMade, playerCurrentAvg.rebounds, playerCurrentAvg.assists, playerCurrentAvg.steals, playerCurrentAvg.blocks,  playerCurrentAvg.turnovers, playerCurrentAvg.minutes]
+                [
+                    {meta: "Average Revenge points", value: averagePoints}, {meta: "Average Revenge fga", value: averageFga}, {meta: "Average Revenge fgm", value: averageFgm}, {meta: "Average Revenge fta", value: averageFta}, {meta: "Average Revenge ftm", value: averageFtm}, {meta: "Average Revenge threes attempted", value: averageThreeA}, {meta: "Average Revenge threes made", value: averageThreeM}, {meta: "Average Revenge rebounds", value: averageReb}, {meta: "Average Revenge assists", value: averageAst}, {meta: "Average Revenge steals", value: averageSt}, {meta: "Average Revenge blocks", value: averageBl}, {meta: "Average Revenge turnovers", value: averageTo}, {meta: "Average Revenge minutes", value: averageMin}
+                ],
+                [
+                    {meta: "Current Season points", value: playerCurrentAvg.points}, {meta: "Current Season fga", value: playerCurrentAvg.fga}, {meta: "Current Season fgm", value: playerCurrentAvg.fgm}, {meta: "Current Season fta", value: playerCurrentAvg.fta}, {meta: "Current Season ftm", value: playerCurrentAvg.ftm}, {meta: "Current Season threes attempted", value: playerCurrentAvg.threesAttempted}, {meta: "Current Season threes made", value: playerCurrentAvg.threesMade}, {meta: "Current Season rebounds", value: playerCurrentAvg.rebounds}, {meta: "Current Season assists", value: playerCurrentAvg.assists}, {meta: "Current Season steals", value: playerCurrentAvg.steals}, {meta: "Current Season blocks", value: playerCurrentAvg.blocks},  {meta: "Current Season turnovers", value: playerCurrentAvg.turnovers}, {meta: "Current Season minutes", value: playerCurrentAvg.minutes}
+                ]
             ]
         }, {
-            height:250,
+            height:280,
             seriesBarDistance: 6,
             axisX: {
-                offset: 60
+                offset: 100
             },
             axisY: {
                 offset: 30,
                 labelInterpolationFnc: function(value) {
                 return value
             },
-                scaleMinSpace: 15
+                scaleMinSpace: 20
             },
             // a plugin from chartist for tooltips
             plugins: [
@@ -165,8 +169,6 @@ function revengeCtrl($http, $log) {
         }
     }
 
-
-
     function createCurrentSeasonStatsChart(playerData){
         var playerCurrentSeason = playerData.zCurrentSeasonStats
         var playerHomeStats = playerData.zCurrentHomeStats
@@ -176,22 +178,31 @@ function revengeCtrl($http, $log) {
         new Chartist.Bar('.ct-chart'+ playerData.firstName + "-1", {
             labels: ['PTS', 'FGA', 'FGM','FTA', 'FTM', '3PA', '3PM', "REB", 'AST', 'ST', 'BL', 'TO', 'MIN'],
             series: [
-                [playerCurrentSeason.points, playerCurrentSeason.fga, playerCurrentSeason.fgm, playerCurrentSeason.fta, playerCurrentSeason.ftm, playerCurrentSeason.threesAttempted, playerCurrentSeason.threesMade, playerCurrentSeason.rebounds, playerCurrentSeason.assists, playerCurrentSeason.steals, playerCurrentSeason.blocks, playerCurrentSeason.turnovers, playerCurrentSeason.minutes],
-                [playerHomeStats.points, playerHomeStats.fga, playerHomeStats.fgm, playerHomeStats.fta, playerHomeStats.ftm, playerHomeStats.threesAttempted, playerHomeStats.threesMade, playerHomeStats.rebounds, playerHomeStats.assists, playerHomeStats.steals, playerHomeStats.blocks, playerHomeStats.turnovers, playerHomeStats.minutes],
-                [playerAwayStats.points, playerAwayStats.fga, playerAwayStats.fgm, playerAwayStats.fta, playerAwayStats.ftm, playerAwayStats.threesAttempted, playerAwayStats.threesMade, playerAwayStats.rebounds, playerAwayStats.assists, playerAwayStats.steals, playerAwayStats.blocks, playerAwayStats.turnovers, playerAwayStats.minutes],
-                [playerLastFive.points, playerLastFive.fga, playerLastFive.fgm, playerLastFive.fta, playerLastFive.ftm, playerLastFive.threesAttempted, playerLastFive.threesMade, playerLastFive.rebounds, playerLastFive.assists, playerLastFive.steals, playerLastFive.blocks, playerLastFive.turnovers, playerLastFive.minutes]
+                [
+                    {meta: 'Current Season points', value: playerCurrentSeason.points}, {meta: 'Current Season fga', value: playerCurrentSeason.fga}, {meta: 'Current Season fgm', value: playerCurrentSeason.fgm}, {meta: 'Current Season fta', value: playerCurrentSeason.fta}, {meta: 'Current Season ftm', value: playerCurrentSeason.ftm}, {meta: 'Current Season threes attempted', value: playerCurrentSeason.threesAttempted}, {meta: 'Current Season threes made', value: playerCurrentSeason.threesMade}, {meta: 'Current Season rebounds', value: playerCurrentSeason.rebounds}, {meta: 'Current Season assists', value: playerCurrentSeason.assists}, {meta: 'Current Season steals', value: playerCurrentSeason.steals}, {meta: 'Current Season blocks', value: playerCurrentSeason.blocks}, {meta: 'Current Season turnovers', value: playerCurrentSeason.turnovers}, {meta: 'Current Season minutes', value: playerCurrentSeason.minutes}
+                ],
+                [
+                    {meta: "Season Home points", value:  playerHomeStats.points}, {meta: "Season Home fga", value:  playerHomeStats.fga}, {meta: "Season Home fgm", value:  playerHomeStats.fgm}, {meta: "Season Home fta", value:  playerHomeStats.fta}, {meta: "Season Home ftm", value:  playerHomeStats.ftm}, {meta: "Season Home threes attempted", value:  playerHomeStats.threesAttempted}, {meta: "Season Home threes made", value:  playerHomeStats.threesMade}, {meta: "Season Home rebounds", value:  playerHomeStats.rebounds}, {meta: "Season Home assists", value:  playerHomeStats.assists}, {meta: "Season Home steals", value:  playerHomeStats.steals}, {meta: "Season Home blocks", value:  playerHomeStats.blocks}, {meta: "Season Home turnovers", value:  playerHomeStats.turnovers}, {meta: "Season Home minutes", value:  playerHomeStats.minutes}
+                ],
+                [
+                    {meta: "Season Away points", value: playerAwayStats.points}, {meta: "Season Away fga", value: playerAwayStats.fga}, {meta: "Season Away fgm", value: playerAwayStats.fgm}, {meta: "Season Away fta", value: playerAwayStats.fta}, {meta: "Season Away ftm", value: playerAwayStats.ftm}, {meta: "Season Away threes attempted", value: playerAwayStats.threesAttempted}, {meta: "Season Away threes made", value: playerAwayStats.threesMade}, {meta: "Season Away rebounds", value: playerAwayStats.rebounds}, {meta: "Season Away assists", value: playerAwayStats.assists}, {meta: "Season Away steals", value: playerAwayStats.steals}, {meta: "Season Away blocks", value: playerAwayStats.blocks}, {meta: "Season Away turnovers", value: playerAwayStats.turnovers}, {meta: "Season Away minutes", value: playerAwayStats.minutes}
+                ],
+                [
+                    {meta: "Last Five points", value: playerLastFive.points}, {meta: "Last Five fga", value: playerLastFive.fga}, {meta: "Last Five fgm", value: playerLastFive.fgm}, {meta: "Last Five fta", value: playerLastFive.fta}, {meta: "Last Five ftm", value: playerLastFive.ftm}, {meta: "Last Five threes attempted", value: playerLastFive.threesAttempted}, {meta: "Last Five threes made", value: playerLastFive.threesMade}, {meta: "Last Five rebounds", value: playerLastFive.rebounds}, {meta: "Last Five assists", value: playerLastFive.assists}, {meta: "Last Five steals", value: playerLastFive.steals}, {meta: "Last Five blocks", value: playerLastFive.blocks}, {meta: "Last Five turnovers", value: playerLastFive.turnovers}, {meta: "Last Five minutes", value: playerLastFive.minutes}
+                ]
             ]
             },{
+                height:280,
                 seriesBarDistance: 6,
                 axisX: {
                     offset: 100
                 },
                 axisY: {
-                    offset: 40,
+                    offset: 30,
                     labelInterpolationFnc: function(value) {
                         return value
                 },
-                    scaleMinSpace: 15
+                    scaleMinSpace: 20
                 },
                 plugins: [
                     Chartist.plugins.tooltip({

@@ -95,7 +95,7 @@ li.navimages:hover {
         -ms-transition: .5s;
         -moz-transition: .5s;
         -webkit-transition: .5s;
-        transition: 1s;
+        transition: .7s;
 }
 
 a:hover {
@@ -209,28 +209,54 @@ a {
 
 .ct-series-a .ct-bar  {
     stroke: #000000 !important;
-    stroke-width: 7px !important;
+    stroke-width: 8px !important;
 }
+
+.ct-series-b .ct-bar  {
+    stroke: #408A67 !important;
+    stroke-width: 8px !important;
+}
+.ct-series-c .ct-bar, .ct-series-c .ct-line, .ct-series-c .ct-point, .ct-series-c  {
+    stroke-width: 8px !important;
+}
+.ct-series-d .ct-bar, .ct-series-d .ct-line, .ct-series-d .ct-point, .ct-series-d .ct-slice-donut {
+    stroke-width: 8px !important;
+}
+
+
 .ct-series-a .ct-bar:hover  {
-    stroke: #ABABAB !important;
+    stroke: #cbcbcb !important;
     -o-transition: .5s;
     -ms-transition: .5s;
     -moz-transition: .5s;
     -webkit-transition: .5s;
     transition: .6s;
-
+}
+.ct-series-b .ct-bar:hover  {
+    stroke: #a1f6ce !important;
+    -o-transition: .5s;
+    -ms-transition: .5s;
+    -moz-transition: .5s;
+    -webkit-transition: .5s;
+    transition: .6s;
+}
+.ct-series-c .ct-bar:hover  {
+    stroke: #ffeaac !important;
+    -o-transition: .5s;
+    -ms-transition: .5s;
+    -moz-transition: .5s;
+    -webkit-transition: .5s;
+    transition: .6s;
+}
+.ct-series-d .ct-bar:hover  {
+    stroke: #f4c486 !important;
+    -o-transition: .5s;
+    -ms-transition: .5s;
+    -moz-transition: .5s;
+    -webkit-transition: .5s;
+    transition: .6s;
 }
 
-.ct-series-b .ct-bar  {
-    stroke: #408A67 !important;
-    stroke-width: 7px !important;
-}
-.ct-series-c .ct-bar, .ct-series-c .ct-line, .ct-series-c .ct-point, .ct-series-c  {
-    stroke-width: 7px !important;
-}
-.ct-series-d .ct-bar, .ct-series-d .ct-line, .ct-series-d .ct-point, .ct-series-d .ct-slice-donut {
-    stroke-width: 7px !important;
-}
 
 .ct-area, .ct-series-b .ct-slice-pie {
     fill: #408A67 !important;
@@ -262,9 +288,10 @@ a {
 .ct-golden-section>svg {
     display: block;
     position: absolute;
+    background-color: white;
     top: 0;
     left: 0;
-    background-color: white;
+    padding-top: 15px;
 }
 
 ct-bar {
@@ -331,9 +358,10 @@ span.chart2-4 {
 .chart1-title {
     background-color: black;
     color: white;
-    padding: 10px 30px;
+    padding: 10px 18px;
     margin-bottom: 10px;
     font-size: 12px;
+    border-radius: 2px;
 }
 
 .first-revenge {
@@ -453,11 +481,36 @@ span.chart2-4 {
     position: absolute;
     z-index: 99;
     background-color: white;
-    width: 100px;
-    height: 50px;
     border: 1px solid;
-    border-radius: 5px;
-    font-size: 14px;
+    border-radius: 2px;
+    font-size: 12px;
+    padding: 10px;
+    text-align: center;
+}
+
+
+.chartist-tooltip:after, .chartist-tooltip:before {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.chartist-tooltip:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-top-color: #ffffff;
+	border-width: 11px;
+	margin-left: -11px;
+}
+.chartist-tooltip:before {
+	border-color: rgba(0, 0, 0, 0);
+	border-top-color: #000000;
+	border-width: 12px;
+	margin-left: -12px;
 }
 
 
@@ -538,17 +591,17 @@ span.chart2-4 {
     }
 
     .ct-series-a .ct-bar, .ct-series-a .ct-line, .ct-series-a .ct-point, .ct-series-a  {
-        stroke-width: 2px !important;
+        stroke-width: 3px !important;
     }
 
     .ct-series-b .ct-bar, .ct-series-b .ct-line, .ct-series-b .ct-point, .ct-series-b  {
-        stroke-width: 2px !important;
+        stroke-width: 3px !important;
     }
     .ct-series-c .ct-bar, .ct-series-c .ct-line, .ct-series-c .ct-point, .ct-series-c  {
-        stroke-width: 2px !important;
+        stroke-width: 3px !important;
     }
     .ct-series-d .ct-bar, .ct-series-d .ct-line, .ct-series-d .ct-point, .ct-series-d .ct-slice-donut {
-        stroke-width: 2px !important;
+        stroke-width: 3px !important;
     }
 }
 
