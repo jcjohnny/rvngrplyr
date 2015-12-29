@@ -38,7 +38,6 @@ function revengeCtrl($http, $log) {
                 playerData[i].isShown = false
                 playerData[i].isShowing = true
         }
-        console.log("clicked me baby");
     }
 
     function checkForShown(playerData){
@@ -131,7 +130,6 @@ function revengeCtrl($http, $log) {
 
         // if no revenge games, do not create chart.
         if (isNaN(averagePoints)){
-            console.log("first revenge game");
             return "First Revenge Game Is A Precious Revenge Game"
         } else {
         // lets create the chart
@@ -220,10 +218,9 @@ function revengeCtrl($http, $log) {
     function getRevenge() {
         // search the api by the current date
         var newDate = new Date();
-        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate() - 2) +"/"+ String(newDate.getUTCFullYear()))
+        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate() ) +"/"+ String(newDate.getUTCFullYear()))
         var currentDateDBFriendly = ( String(newDate.getMonth() + 1) + "-" + String(newDate.getUTCDate()) +"-"+ String(newDate.getUTCFullYear()))
         self.thisDate.push(currentDateDBFriendly)
-        console.log(currentDate);
         $http
             .jsonp('http://stats.nba.com/stats/scoreboard/?GameDate='+ currentDate +'&LeagueID=00&DayOffset=0&callback=JSON_CALLBACK')
             .then(function (response) {
@@ -250,7 +247,6 @@ function revengeCtrl($http, $log) {
             nestTeamArr.push(teamInfo[i][7]);
             idArray.push(nestTeamArr)
         }
-        console.log(idArray)
         // time to get hit the api again with current data
         splittingTeams(idArray)
     }
@@ -298,11 +294,9 @@ function revengeCtrl($http, $log) {
         var currentTeamPlayers = playersEnemy[0]
         var enemyTeam = playersEnemy[1]
         var currentTeam = playersEnemy[2]
-        console.log(currentTeamPlayers);
         // go through each player in the team and start a search
         for (var i = 0; i < currentTeamPlayers.length; i++) {
             var playerVsTeam = [currentTeamPlayers[i], enemyTeam]
-            console.log(currentTeam);
             checkForRevenge(playerVsTeam)
         }
     }
@@ -319,14 +313,11 @@ function revengeCtrl($http, $log) {
                     var collectRevenge = []
                     if (allPlayersTeams[i][3] === enemyTeamId){
                         collectRevenge.push([currentPlayerId, enemyTeamId])
-                        console.log("REVENGE")
                         // collectiveRevenge[0][0] because its from just one player and an array of all his current/previous teams
                         if (collectRevenge[0][0] === allPlayersTeams[i][0]){
                             // replace by pushing in new data instead.
                             // time for next function.
                             var enemyTeamName = allPlayersTeams[i][4]
-                            console.log(currentPlayerId);
-                            console.log(enemyTeamName);
                             self.revengeGames.push([currentPlayerId, enemyTeamId])
                             commonPlayerData([currentPlayerId, enemyTeamId, enemyTeamName])
 
@@ -361,7 +352,6 @@ function revengeCtrl($http, $log) {
             .then(function(response){
                 var playerInfo = response.data.resultSets[0].rowSet[0]
                 var playerStats = response.data.resultSets[1].rowSet[0]
-                console.log(playerInfo);
                 playerPictureee =  "http://stats.nba.com/media/players/230x185/"+playerInfo[0]+".png",
                 firstNameee =  playerInfo[1].split('.').join(''),
                 lastNameee =  playerInfo[2],
@@ -406,7 +396,6 @@ function revengeCtrl($http, $log) {
                         var arrayOfGames = response.data.resultSets[0].rowSet
                         for (var i = 0; i < arrayOfGames.length; i++) {
                             if (arrayOfGames[i][4].split(" ")[2] === enemyTeamNameee) {
-                                console.log("found something");
                                 enemyGamesLastee.push({
                                     matchUp: arrayOfGames[i][4],
                                     gameId: arrayOfGames[i][2],
@@ -430,7 +419,6 @@ function revengeCtrl($http, $log) {
                                 $http
                                     .jsonp('http://stats.nba.com/stats/boxscoretraditionalv2?EndPeriod=10&EndRange=28800&GameID='+ arrayOfGames[i][2] +'&RangeType=0&Season=2014-15&SeasonType=Regular+Season&StartPeriod=1&StartRange=0&callback=JSON_CALLBACK')
                                     .then(function(response){
-                                        console.log("gotem");
                                         var twoTeamStats = response.data.resultSets[1].rowSet
                                         for (var i = 0; i < twoTeamStats.length; i++) {
                                             if (twoTeamStats[i][3] == enemyTeamNameee){
@@ -483,11 +471,9 @@ function revengeCtrl($http, $log) {
                         $http
                             .jsonp('http://stats.nba.com/stats/playergamelog?LeagueID=00&PlayerID='+playerId+'&Season=2015-16&SeasonType=Regular+Season&callback=JSON_CALLBACK')
                             .then(function(response){
-                                console.log("nextbaby");
                                 var currentArrayOfGames = response.data.resultSets[0].rowSet
                                 for (var i = 0; i < currentArrayOfGames.length; i++) {
                                     if (currentArrayOfGames[i][4].split(" ")[2] === enemyTeamNameee) {
-                                        console.log("found something");
                                         enemyGamesCurrentee.push({
                                             matchUp: currentArrayOfGames[i][4],
                                             gameId: currentArrayOfGames[i][2],
@@ -512,7 +498,6 @@ function revengeCtrl($http, $log) {
                                         $http
                                         .jsonp('http://stats.nba.com/stats/boxscoretraditionalv2?EndPeriod=10&EndRange=28800&GameID='+ currentArrayOfGames[i][2] +'&RangeType=0&Season=2014-15&SeasonType=Regular+Season&StartPeriod=1&StartRange=0&callback=JSON_CALLBACK')
                                         .then(function(response){
-                                            console.log("gotem");
                                             var twoTeamStats = response.data.resultSets[1].rowSet
                                             for (var i = 0; i < twoTeamStats.length; i++) {
                                                 if (twoTeamStats[i][3] == enemyTeamNameee){
@@ -565,7 +550,6 @@ function revengeCtrl($http, $log) {
                                 $http
                                     .jsonp('http://stats.nba.com/stats/playerfantasyprofile?DateFrom=&DateTo=&GameSegment=&LastNGames=0&LeagueID=00&Location=&MeasureType=Base&Month=0&OpponentTeamID=0&Outcome=&PORound=0&PaceAdjust=N&PerMode=PerGame&Period=0&PlayerID=' + playerId + '&PlusMinus=N&Rank=N&Season=2015-16&SeasonSegment=&SeasonType=Regular+Season&ShotClockRange=&VsConference=&VsDivision=&callback=JSON_CALLBACK')
                                     .then(function(response){
-                                        console.log("now i am here mang");
                                         var overall = response.data.resultSets[0].rowSet[0]
                                         var home = response.data.resultSets[1].rowSet[0]
                                         var away = response.data.resultSets[1].rowSet[1]

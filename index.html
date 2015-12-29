@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <div class = "keys" ng-show = "revenge.isShown"> <span class = "chart1-1">
+                <div ng-if="revenge.zEnemyGamesLastSeason[0] !== undefined || revenge.zEnemyGamesCurrent[0] !== undefined" class = "keys" ng-show = "revenge.isShown"> <span class = "chart1-1">
                 </span> average revenge games <span class = "chart1-2"></span> current season average
                 </div>
 
