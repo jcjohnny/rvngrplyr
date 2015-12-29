@@ -162,113 +162,10 @@ function revengeCtrl($http, $log) {
             ]
         })
 
-        //stays in the else statement. if revenge games exist, lets proceed to creating some donuts
-        var averageData = [[averagePoints, averageFga, averageFgm, averageFta, averageFtm, averageThreeA, averageThreeM, averageReb, averageAst, averageSt, averageBl, averageTo, averageMin], [playerCurrentAvg], playerData]
-        createAveragePerformanceDonut(averageData)
-
-        createAverageUsageDonut(averageData)
         }
     }
 
-    function createAveragePerformanceDonut(playerData){
-        // calculate increased performance by using points metrics from fanduel
-        var fdRevengePoints = playerData[0][0]
-        var fdRevengeReb = playerData[0][7] * 1.2
-        var fdRevengeAst = playerData[0][8] * 1.5
-        var fdRevengeSt = playerData[0][9] * 2
-        var fdRevengeBl = playerData[0][10] * 2
-        var fdRevengeTo = -playerData[0][11]
 
-        var fdPoints = playerData[1][0].points
-        var fdReb = playerData[1][0].rebounds * 1.2
-        var fdAst = playerData[1][0].assists * 1.5
-        var fdSt = playerData[1][0].steals * 2
-        var fdBl = playerData[1][0].blocks * 2
-        var fdTo = -playerData[1][0].turnovers
-
-        var fdRevengeStats = fdRevengePoints + fdRevengeReb + fdRevengeAst + fdRevengeSt + fdRevengeBl + fdRevengeTo
-        var fdStats = fdPoints + fdReb + fdAst + fdSt + fdBl + fdTo
-
-        var increaseVSdecrease
-        if (fdRevengeStats < fdStats){
-            increaseVSdecrease = "Perfomance Decrease"
-        } else {
-            increaseVSdecrease = "Performance Increase"
-        }
-
-        var percentChange = (((fdRevengeStats - fdStats)/fdStats )* 100)
-        var chart = new Chartist.Pie('.ct-chart' + playerData[2].firstName + "-2",
-                {
-                    series: [fdStats, fdRevengeStats ],
-                    labels: ['totalSeasinScore', 'totalRevengeScore']
-                }, {
-                    donut: true,
-                    donutWidth: 40,
-                    startAngle: 180,
-                    total: 100,
-                    showLabel: false,
-                    plugins: [
-                        Chartist.plugins.fillDonut({
-                            items: [{
-                                content: '<i class="fa fa-tachometer"></i>',
-                                position: 'bottom',
-                                offsetY : 10,
-                                offsetX: -2
-                            }, {
-                                content: '<h3>'+ (percentChange)+"%" + '<br> <span class="small">'+increaseVSdecrease+'</span></h3>'
-                            }]
-                        })
-                    ],
-                });
-    }
-
-    function createAverageUsageDonut(playerData){
-        // calculate usage rate difference here here
-        var revengeGamesAmount = playerData[2].zEnemyGamesCurrent.length + playerData[2].zEnemyGamesLastSeason.length,
-            revengePlayerFGA =  playerData[0][1],
-            revengePlayerFTA = playerData[0][3],
-            revengePlayerTO = playerData[0][10],
-            revengePlayerMIN = playerData[0][12],
-            revengeTeamFGA = 0,
-            revengeTeamFTA = 0,
-            revengeTeamTO = 0,
-            revengeTeamMP = 0,
-            playerFGA = playerData[2].zCurrentSeasonStats.fga,
-            playerFTA = playerData[2].zCurrentSeasonStats.fta,
-            playerTO = playerData[2].zCurrentSeasonStats.turnovers,
-            playerMIN = playerData[2].zCurrentSeasonStats.minutes,
-            teamFGA = playerData[2].zCurrentGamesTeam[0].fga,
-            teamFTA = playerData[2].zCurrentGamesTeam[0].fta,
-            teamTO = playerData[2].zCurrentGamesTeam[0].turnovers,
-            teamMP = playerData[2].zCurrentGamesTeam[0].minutes
-
-            if (playerData[2].zEnemyGamesTeamLast[0] !== undefined){
-                for (var i = 0; i < playerData[2].zEnemyGamesTeamLast.length; i++) {
-                revengeTeamFGA += playerData[2].zEnemyGamesTeamLast[i].homeTeam.teamFga
-                revengeTeamFTA += playerData[2].zEnemyGamesTeamLast[i].homeTeam.teamFta
-                revengeTeamTO += playerData[2].zEnemyGamesTeamLast[i].homeTeam.teamTo
-                revengeTeamMP += Number(playerData[2].zEnemyGamesTeamLast[i].homeTeam.teamMinutes.substring(0,3)) / 5
-                }
-            }
-            if (playerData[2].zEnemyGamesTeamCurrent[0] !== undefined){
-                for (var i = 0; i < playerData[2].zEnemyGamesTeamCurrent.length; i++) {
-                revengeTeamFGA += playerData[2].zEnemyGamesTeamCurrent[i].homeTeam.teamFga
-                revengeTeamFTA += playerData[2].zEnemyGamesTeamCurrent[i].homeTeam.teamFta
-                revengeTeamTO += playerData[2].zEnemyGamesTeamCurrent[i].homeTeam.teamTo
-                revengeTeamMP += Number(playerData[2].zEnemyGamesTeamCurrent[i].homeTeam.teamMinutes.substring(0,3)) / 5
-                }
-            }
-        revengeTeamFGA = revengeTeamFGA / revengeGamesAmount
-        revengeTeamFTA = revengeTeamFTA / revengeGamesAmount
-        revengeTeamTO = revengeTeamTO / revengeGamesAmount
-        revengeTeamMP = revengeTeamMP / revengeGamesAmount
-
-        var revengeUsageRate = (100 * ((revengePlayerFGA + 0.44 * revengePlayerFTA + revengePlayerTO) * (revengeTeamMP /5)) / (revengePlayerMIN * (revengeTeamFGA + 0.44 * revengeTeamFTA + revengeTeamTO)))
-
-        var currentUsageRate = (100 * ((playerFGA + 0.44 * playerFTA + playerTO) * (teamMP /5)) / (playerMIN * (teamFGA + 0.44 * teamFTA + teamTO)))
-        debugger
-        console.log("hello darkness");
-    }
 
     function createCurrentSeasonStatsChart(playerData){
         var playerCurrentSeason = playerData.zCurrentSeasonStats
@@ -312,7 +209,7 @@ function revengeCtrl($http, $log) {
     function getRevenge() {
         // search the api by the current date
         var newDate = new Date();
-        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate() - 2) +"/"+ String(newDate.getUTCFullYear()))
+        var currentDate = ( String(newDate.getMonth() + 1) + "/" + String(newDate.getUTCDate()) +"/"+ String(newDate.getUTCFullYear()))
         var currentDateDBFriendly = ( String(newDate.getMonth() + 1) + "-" + String(newDate.getUTCDate()) +"-"+ String(newDate.getUTCFullYear()))
         self.thisDate.push(currentDateDBFriendly)
         console.log(currentDate);
