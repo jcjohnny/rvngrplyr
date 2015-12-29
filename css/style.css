@@ -365,10 +365,24 @@ span.chart2-4 {
 }
 
 .first-revenge {
-    height: 230px;
+    height: 270px;
     background-color: rgb(244, 198, 61);
     text-align: center;
     line-height: 300px;
+}
+
+.click-if:hover {
+    animation: 0;
+    color: white;
+    background-color: #000000;
+    -webkit-box-shadow: -6px 6px 0px -2px rgb(244, 198, 61);
+    -moz-box-shadow: -6px 6px 0px -2px rgb(244, 198, 61);
+    box-shadow: -6px 6px 0px -2px rgb(244, 198, 61);
+    -o-transition: .5s;
+    -ms-transition: .5s;
+    -moz-transition: .5s;
+    -webkit-transition: .5s;
+    transition: .6s;
 }
 
 .middle {
@@ -406,8 +420,8 @@ span.chart2-4 {
     transform: translate(-50%, -50%);
     padding: 7% 4%;
     z-index: 99;
-    -webkit-box-shadow: -11px 10px 0px 2px rgba(0,0,0,1);
-    -moz-box-shadow: -11px 10px 0px 2px rgba(0,0,0,1);
+    -webkit-box-shadow: -11px 10px 0px 2px #d17905;
+    -moz-box-shadow: -11px 10px 0px 2px #d17905;
     box-shadow: -11px 10px 0px 2px #d17905;
     -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
        -moz-animation: fadein 2s; /* Firefox < 16 */
