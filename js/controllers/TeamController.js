@@ -227,7 +227,7 @@ function revengeCtrl($http, $log) {
                 // temporary data check for the api
                 // self.all = response.data.resultSets[0].rowSet;
                 // store the necessary data to use as argument in next function
-                const collecterOfData = response.data.resultSets[0].rowSet;
+                var collecterOfData = response.data.resultSets[0].rowSet;
                 $log.log(collecterOfData);
                 // call function to create created nested arrays to sort through
                 $log.log("amount of teams playing " +  collecterOfData.length)
@@ -240,7 +240,7 @@ function revengeCtrl($http, $log) {
 
     // function to get all team ID's and nest them to create one array
     function getTeamPlayers(teamInfo){
-        const idArray = [];
+        var idArray = [];
         for (var i = 0; i < teamInfo.length; i++) {
             var nestTeamArr = [];
             nestTeamArr.push(teamInfo[i][6]);
