@@ -353,7 +353,7 @@ function revengeCtrl($http, $log) {
                 var playerInfo = response.data.resultSets[0].rowSet[0]
                 var playerStats = response.data.resultSets[1].rowSet[0]
                 playerPictureee =  "http://stats.nba.com/media/players/230x185/"+playerInfo[0]+".png",
-                firstNameee =  playerInfo[1].split('.').join(''),
+                firstNameee =  playerInfo[1].replace(/[^a-zA-Z]+/g, ''),
                 lastNameee =  playerInfo[2],
                 playerIdee =  playerInfo[0],
                 teamee =  (playerInfo[20] + " " + playerInfo[17]),
