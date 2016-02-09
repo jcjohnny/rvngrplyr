@@ -1,7 +1,6 @@
 # rvngrplyr
 
-#### VIEW ME ON BITBALOON
-http://engineer-development-70664.bitballoon.com/#
+#### VIEW ME ON www.vengegames.com
 
 A data analyzing app for the NBA that parses through all nba player data and collects all nba players that potential revenge games for the week
 
