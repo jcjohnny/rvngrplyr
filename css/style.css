@@ -4,6 +4,49 @@
     font-family: 'Titillium Web', sans-serif;
 }
 
+/*DISABLED API */
+/*DISABLED API */
+/*DISABLED API */
+/*DISABLED API */
+/*DISABLED API */
+
+.api-disabled {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 120px;
+    margin: 0 auto;
+    bottom: 0;
+    width: 80%;
+    height: 500px;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    z-index: 99;
+    padding: 5%;
+    -webkit-box-shadow: -11px 10px 0px 2px #d17905;
+    -moz-box-shadow: -11px 10px 0px 2px #d17905;
+    box-shadow: -11px 10px 0px 2px #d17905;
+    box-sizing: border-box;
+}
+.api-container {
+    position: relative;
+    display: block;
+    font-size: 20px;
+}
+
+.api-container h1 {
+    text-transform: uppercase;
+}
+
+
+/*DISABLED API END END */
+/*DISABLED API END END */
+/*DISABLED API END END */
+/*DISABLED API END END */
+/*DISABLED API END END */
+
 body {
     background-color: #FEF7E4;
 }
